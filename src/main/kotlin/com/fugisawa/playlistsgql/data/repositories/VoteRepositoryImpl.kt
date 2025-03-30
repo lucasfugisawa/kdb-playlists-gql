@@ -1,5 +1,6 @@
-package com.fugisawa.playlistsgql.infrastructure.data.repositories
+package com.fugisawa.playlistsgql.data.repositories
 
+import com.fugisawa.playlistsgql.config.DatabaseConfig
 import com.fugisawa.playlistsgql.data.dao.VoteDao
 import com.fugisawa.playlistsgql.data.dao.VoteTable
 import com.fugisawa.playlistsgql.data.mappers.toDao
@@ -10,29 +11,30 @@ import com.fugisawa.playlistsgql.domain.models.PlaylistSong
 import com.fugisawa.playlistsgql.domain.models.User
 import com.fugisawa.playlistsgql.domain.models.Vote
 import com.fugisawa.playlistsgql.domain.repositories.VoteRepository
-import com.fugisawa.playlistsgql.infrastructure.config.database.DatabaseFactory.dbQuery
 import org.jetbrains.exposed.sql.and
 import java.util.UUID
 
-class VoteRepositoryImpl : VoteRepository {
+class VoteRepositoryImpl(
+    private val databaseConfig: DatabaseConfig,
+) : VoteRepository {
     override suspend fun getById(id: UUID): Vote? =
-        dbQuery {
+        databaseConfig.dbQuery {
             VoteDao.findById(id)?.toEntity()
         }
 
     override suspend fun getAll(): List<Vote> =
-        dbQuery {
+        databaseConfig.dbQuery {
             VoteDao.all().toList().toEntities()
         }
 
     override suspend fun findByPlaylistSong(playlistSong: PlaylistSong): List<Vote> =
-        dbQuery {
+        databaseConfig.dbQuery {
             val playlistSongDao = playlistSong.toDao()
             VoteDao.find { VoteTable.playlistSong eq playlistSongDao.id }.toList().toEntities()
         }
 
     override suspend fun findByUser(user: User): List<Vote> =
-        dbQuery {
+        databaseConfig.dbQuery {
             val userDao = user.toDao()
             VoteDao.find { VoteTable.user eq userDao.id }.toList().toEntities()
         }
@@ -41,7 +43,7 @@ class VoteRepositoryImpl : VoteRepository {
         playlistSong: PlaylistSong,
         user: User,
     ): Vote? =
-        dbQuery {
+        databaseConfig.dbQuery {
             val playlistSongDao = playlistSong.toDao()
             val userDao = user.toDao()
             VoteDao
@@ -52,18 +54,18 @@ class VoteRepositoryImpl : VoteRepository {
         }
 
     override suspend fun findByType(type: VoteType): List<Vote> =
-        dbQuery {
+        databaseConfig.dbQuery {
             VoteDao.find { VoteTable.voteType eq type.name }.toList().toEntities()
         }
 
     override suspend fun create(vote: Vote): Vote =
-        dbQuery {
+        databaseConfig.dbQuery {
             val dao = vote.toDao()
             dao.toEntity()
         }
 
     override suspend fun update(vote: Vote): Vote =
-        dbQuery {
+        databaseConfig.dbQuery {
             val dao = VoteDao.findById(vote.id) ?: throw IllegalArgumentException("Vote not found")
             dao.playlistSong = vote.playlistSong.toDao()
             dao.user = vote.user.toDao()
@@ -73,7 +75,7 @@ class VoteRepositoryImpl : VoteRepository {
         }
 
     override suspend fun delete(id: UUID): Boolean =
-        dbQuery {
+        databaseConfig.dbQuery {
             val dao = VoteDao.findById(id) ?: return@dbQuery false
             dao.delete()
             true

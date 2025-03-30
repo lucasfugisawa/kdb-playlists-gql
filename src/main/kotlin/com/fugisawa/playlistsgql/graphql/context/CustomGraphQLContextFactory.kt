@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.infrastructure.graphql
+package com.fugisawa.playlistsgql.graphql.context
 
 import com.expediagroup.graphql.generator.extensions.plus
 import com.expediagroup.graphql.server.ktor.DefaultKtorGraphQLContextFactory

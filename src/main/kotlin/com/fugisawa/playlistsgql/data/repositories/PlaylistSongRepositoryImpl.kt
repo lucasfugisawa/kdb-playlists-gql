@@ -1,5 +1,6 @@
-package com.fugisawa.playlistsgql.infrastructure.data.repositories
+package com.fugisawa.playlistsgql.data.repositories
 
+import com.fugisawa.playlistsgql.config.DatabaseConfig
 import com.fugisawa.playlistsgql.data.dao.PlaylistSongDao
 import com.fugisawa.playlistsgql.data.dao.PlaylistSongTable
 import com.fugisawa.playlistsgql.data.mappers.toDao
@@ -10,35 +11,36 @@ import com.fugisawa.playlistsgql.domain.models.PlaylistSong
 import com.fugisawa.playlistsgql.domain.models.Song
 import com.fugisawa.playlistsgql.domain.models.User
 import com.fugisawa.playlistsgql.domain.repositories.PlaylistSongRepository
-import com.fugisawa.playlistsgql.infrastructure.config.database.DatabaseFactory.dbQuery
 import org.jetbrains.exposed.sql.and
 import java.util.UUID
 
-class PlaylistSongRepositoryImpl : PlaylistSongRepository {
+class PlaylistSongRepositoryImpl(
+    private val databaseConfig: DatabaseConfig,
+) : PlaylistSongRepository {
     override suspend fun getById(id: UUID): PlaylistSong? =
-        dbQuery {
+        databaseConfig.dbQuery {
             PlaylistSongDao.findById(id)?.toEntity()
         }
 
     override suspend fun getAll(): List<PlaylistSong> =
-        dbQuery {
+        databaseConfig.dbQuery {
             PlaylistSongDao.all().toList().toEntities()
         }
 
     override suspend fun findByPlaylist(playlist: Playlist): List<PlaylistSong> =
-        dbQuery {
+        databaseConfig.dbQuery {
             val playlistDao = playlist.toDao()
             PlaylistSongDao.find { PlaylistSongTable.playlist eq playlistDao.id }.toList().toEntities()
         }
 
     override suspend fun findBySong(song: Song): List<PlaylistSong> =
-        dbQuery {
+        databaseConfig.dbQuery {
             val songDao = song.toDao()
             PlaylistSongDao.find { PlaylistSongTable.song eq songDao.id }.toList().toEntities()
         }
 
     override suspend fun findByAddedBy(user: User): List<PlaylistSong> =
-        dbQuery {
+        databaseConfig.dbQuery {
             val userDao = user.toDao()
             PlaylistSongDao.find { PlaylistSongTable.addedBy eq userDao.id }.toList().toEntities()
         }
@@ -47,7 +49,7 @@ class PlaylistSongRepositoryImpl : PlaylistSongRepository {
         playlist: Playlist,
         position: Int,
     ): PlaylistSong? =
-        dbQuery {
+        databaseConfig.dbQuery {
             val playlistDao = playlist.toDao()
             PlaylistSongDao
                 .find {
@@ -57,13 +59,13 @@ class PlaylistSongRepositoryImpl : PlaylistSongRepository {
         }
 
     override suspend fun create(playlistSong: PlaylistSong): PlaylistSong =
-        dbQuery {
+        databaseConfig.dbQuery {
             val dao = playlistSong.toDao()
             dao.toEntity()
         }
 
     override suspend fun update(playlistSong: PlaylistSong): PlaylistSong =
-        dbQuery {
+        databaseConfig.dbQuery {
             val dao = PlaylistSongDao.findById(playlistSong.id) ?: throw IllegalArgumentException("PlaylistSong not found")
             dao.playlist = playlistSong.playlist.toDao()
             dao.song = playlistSong.song.toDao()
@@ -73,7 +75,7 @@ class PlaylistSongRepositoryImpl : PlaylistSongRepository {
         }
 
     override suspend fun delete(id: UUID): Boolean =
-        dbQuery {
+        databaseConfig.dbQuery {
             val dao = PlaylistSongDao.findById(id) ?: return@dbQuery false
             dao.delete()
             true

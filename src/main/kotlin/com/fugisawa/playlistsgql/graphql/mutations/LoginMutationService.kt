@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.infrastructure.graphql.mutations
+package com.fugisawa.playlistsgql.graphql.mutations
 
 import com.expediagroup.graphql.server.operations.Mutation
 import com.fugisawa.playlistsgql.domain.models.User

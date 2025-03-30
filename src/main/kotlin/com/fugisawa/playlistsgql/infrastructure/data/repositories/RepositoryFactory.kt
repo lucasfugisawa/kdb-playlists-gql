@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.data.repositories
+package com.fugisawa.playlistsgql.infrastructure.data.repositories
 
 import com.fugisawa.playlistsgql.domain.repositories.PlaylistRepository
 import com.fugisawa.playlistsgql.domain.repositories.PlaylistSongRepository

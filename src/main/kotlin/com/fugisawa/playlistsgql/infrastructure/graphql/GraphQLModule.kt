@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.com.fugisawa.playlistsgql.infrastructure.graphql
+package com.fugisawa.playlistsgql.infrastructure.graphql
 
 import com.expediagroup.graphql.dataloader.KotlinDataLoaderRegistryFactory
 import com.expediagroup.graphql.server.ktor.GraphQL
@@ -8,16 +8,16 @@ import com.expediagroup.graphql.server.ktor.graphQLPostRoute
 import com.expediagroup.graphql.server.ktor.graphQLSDLRoute
 import com.expediagroup.graphql.server.ktor.graphQLSubscriptionsRoute
 import com.expediagroup.graphql.server.ktor.graphiQLRoute
-import com.fugisawa.playlistsgql.com.fugisawa.playlistsgql.infrastructure.graphql.mutations.LoginMutationService
-import com.fugisawa.playlistsgql.com.fugisawa.playlistsgql.infrastructure.graphql.queries.HelloQueryService
-import com.fugisawa.playlistsgql.com.fugisawa.playlistsgql.infrastructure.graphql.subscriptions.ExampleSubscriptionService
-import com.fugisawa.playlistsgql.infrastructure.graphql.CustomSchemaHooks
-import io.ktor.http.*
+import com.fugisawa.playlistsgql.infrastructure.graphql.mutations.LoginMutationService
+import com.fugisawa.playlistsgql.infrastructure.graphql.queries.HelloQueryService
+import com.fugisawa.playlistsgql.infrastructure.graphql.subscriptions.ExampleSubscriptionService
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
 import io.ktor.serialization.jackson.JacksonWebsocketContentConverter
-import io.ktor.server.application.*
-import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.plugins.statuspages.*
-import io.ktor.server.response.*
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
+import io.ktor.server.plugins.cors.routing.CORS
+import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.routing.routing
 import io.ktor.server.websocket.WebSockets
 import io.ktor.server.websocket.pingPeriod

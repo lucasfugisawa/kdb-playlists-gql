@@ -5,6 +5,7 @@ val flyway_version: String = "11.5.0"
 val postgres_version: String = "42.7.5"
 val hikaricp_version: String = "6.3.0"
 val graphql_kotlin_version: String = "8.4.0"
+val koin_version: String = "4.0.3"
 
 plugins {
     kotlin("jvm") version "2.1.20"
@@ -42,6 +43,11 @@ dependencies {
     implementation("io.ktor:ktor-server-host-common")
     implementation("io.ktor:ktor-server-netty")
     implementation("io.ktor:ktor-server-status-pages")
+
+    implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koin_version"))
+    implementation("io.insert-koin:koin-core")
+    implementation("io.insert-koin:koin-ktor")
+    implementation("io.insert-koin:koin-logger-slf4j")
 
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("com.zaxxer:HikariCP:$hikaricp_version")

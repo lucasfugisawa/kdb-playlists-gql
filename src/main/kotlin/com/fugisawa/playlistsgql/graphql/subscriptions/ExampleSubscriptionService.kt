@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.infrastructure.graphql.subscriptions
+package com.fugisawa.playlistsgql.graphql.subscriptions
 
 import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.server.operations.Subscription

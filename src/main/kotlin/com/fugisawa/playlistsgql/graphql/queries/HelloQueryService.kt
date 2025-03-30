@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.infrastructure.graphql.queries
+package com.fugisawa.playlistsgql.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
 
