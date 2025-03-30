@@ -1,21 +1,46 @@
 # kdb-playlists-gql
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
-
-Here are some useful links to get you started:
-
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need
-  to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
+A complete Kotlin + Ktor + GraphQL project using graphql-kotlin that serves as a clean, educational codebase for learning and teaching GraphQL servers with Kotlin. This project demonstrates how to build a music playlist management system with GraphQL APIs.
 
 ## Features
 
-Here's a list of features included in this project:
+- **Kotlin & Ktor**: Modern, concise, and safe programming with Kotlin and Ktor web framework
+- **GraphQL API**: Complete GraphQL implementation using graphql-kotlin
+  - Queries: Fetch data from the server
+  - Mutations: Modify data on the server
+  - Subscriptions: Real-time updates via WebSockets
+  - Custom scalars: UUID support
+- **PostgreSQL Database**: Persistent storage with PostgreSQL
+- **Exposed ORM**: Type-safe SQL framework for Kotlin
+- **Flyway Migrations**: Database versioning and migrations
+- **HikariCP**: High-performance JDBC connection pool
+- **Domain-Driven Design**: Clean architecture with separation of concerns
+- **Docker Support**: Easy setup with Docker Compose
 
-| Name                                               | Description                                                 |
-|----------------------------------------------------|-------------------------------------------------------------|
-| [Routing](https://start.ktor.io/p/routing-default) | Allows to define structured routes and associated handlers. |
+## Domain Overview & Core Entities
+
+This project implements a music playlist management system with the following core entities:
+
+### User
+- Simple user model with ID and username
+- Users can create playlists and vote on songs
+
+### Playlist
+- Collection of songs created by a user
+- Has title, description, and optional tags
+- Tracks creation time
+
+### Song
+- Music track with title, artist, duration, and genre
+- Supports various genres: Rock, Pop, Jazz, Metal, Indie, Hip-Hop, Electronic
+
+### PlaylistSong
+- Join entity representing a song within a playlist
+- Tracks who added the song and its position in the playlist
+
+### Vote
+- Users can upvote or downvote songs in playlists
+- Tracks who voted and when
 
 ## Database Setup
 
@@ -49,7 +74,17 @@ To stop the container and remove all data (volumes), run:
 docker-compose down -v
 ```
 
-## Building & Running
+## Testing, Building & Running
+
+### Testing
+
+To run the tests:
+
+```bash
+./gradlew test
+```
+
+### Building & Running
 
 To build or run the project, use one of the following tasks:
 
@@ -69,3 +104,28 @@ If the server starts successfully, you'll see the following output:
 2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
 2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
 ```
+
+## Useful Links
+
+- [Ktor Documentation](https://ktor.io/docs/home.html)
+- [Ktor GitHub page](https://github.com/ktorio/ktor)
+- [GraphQL Kotlin Documentation](https://expediagroup.github.io/graphql-kotlin/)
+- [Exposed Documentation](https://github.com/JetBrains/Exposed)
+- [Flyway Documentation](https://flywaydb.org/documentation/)
+- [GraphQL Specification](https://spec.graphql.org/)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+
+## Contributing
+
+Contributions are welcome! Here's how you can contribute:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature/my-new-feature`
+5. Submit a pull request
+
+Please make sure your code follows the project's coding style and includes appropriate tests.
