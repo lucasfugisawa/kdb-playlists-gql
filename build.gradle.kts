@@ -10,6 +10,7 @@ plugins {
     kotlin("jvm") version "2.1.20"
     id("io.ktor.plugin") version "3.1.2"
     id("org.jmailen.kotlinter") version "5.0.1"
+    id("com.github.ben-manes.versions") version "0.52.0"
 }
 
 group = "com.fugisawa.playlistsgql"
