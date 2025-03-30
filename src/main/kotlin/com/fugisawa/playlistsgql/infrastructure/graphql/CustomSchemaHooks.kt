@@ -6,8 +6,6 @@ import graphql.schema.GraphQLType
 import java.util.*
 import kotlin.reflect.KType
 
-class CustomSchemaHooks() : FlowSubscriptionSchemaGeneratorHooks() {
-    override fun willGenerateGraphQLType(type: KType): GraphQLType? {
-        return if (type.classifier == UUID::class) uuidScalar else null
-    }
+class CustomSchemaHooks : FlowSubscriptionSchemaGeneratorHooks() {
+    override fun willGenerateGraphQLType(type: KType): GraphQLType? = if (type.classifier == UUID::class) uuidScalar else null
 }
