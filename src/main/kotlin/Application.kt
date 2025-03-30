@@ -1,5 +1,6 @@
 package com.fugisawa.playlistsgql
 
+import com.fugisawa.playlistsgql.com.fugisawa.playlistsgql.infrastructure.graphql.configureGraphQL
 import com.fugisawa.playlistsgql.data.repositories.configureRepositories
 import com.fugisawa.playlistsgql.infrastructure.config.database.configureDatabases
 import io.ktor.server.application.Application
@@ -13,4 +14,5 @@ fun Application.module() {
     configureDatabases()
     configureRepositories()
     configureRouting()
+    configureGraphQL()
 }

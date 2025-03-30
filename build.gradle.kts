@@ -4,6 +4,7 @@ val exposed_version: String = "0.60.0"
 val flyway_version: String = "11.5.0"
 val postgres_version: String = "42.7.5"
 val hikaricp_version: String = "6.3.0"
+val graphql_kotlin_version: String = "8.4.0"
 
 plugins {
     kotlin("jvm") version "2.1.20"
@@ -23,6 +24,9 @@ application {
 
 kotlin {
     jvmToolchain(21)
+    sourceSets.all {
+        languageSettings.optIn("kotlin.ExperimentalStdlibApi")
+    }
 }
 
 repositories {
@@ -49,6 +53,13 @@ dependencies {
     // Flyway
     implementation("org.flywaydb:flyway-core:$flyway_version")
     implementation("org.flywaydb:flyway-database-postgresql:$flyway_version")
+
+    // GraphQL-Kotlin
+    implementation("com.expediagroup:graphql-kotlin-ktor-server:$graphql_kotlin_version")
+
+    implementation("io.ktor:ktor-server-cors:3.1.1")
+    implementation("io.ktor:ktor-server-host-common:3.1.1")
+    implementation("io.ktor:ktor-server-status-pages:3.1.1")
 
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
