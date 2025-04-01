@@ -22,6 +22,4 @@ fun Application.module() {
     configureDatabases()
     configureRouting()
     configureGraphQL()
-
-    // TODO: Remove refactor leftovers (e.g., duplicate LoginMutationService).
 }
