@@ -39,7 +39,7 @@ import org.koin.dsl.module
 
 val databaseModule =
     module {
-        single { DatabaseConfig() }
+        singleOf(::DatabaseConfig)
     }
 
 val repositoryModule =
@@ -53,39 +53,39 @@ val repositoryModule =
 
 val serviceModule =
     module {
-        single { SongService(get()) }
-        single { UserService(get()) }
-        single { PlaylistService(get()) }
-        single { PlaylistSongService(get()) }
-        single { VoteService(get()) }
+        singleOf(::SongService)
+        singleOf(::UserService)
+        singleOf(::PlaylistService)
+        singleOf(::PlaylistSongService)
+        singleOf(::VoteService)
     }
 
 val dataLoaderModule =
     module {
-        single { UserDataLoader(get()) }
-        single { SongDataLoader(get()) }
-        single { PlaylistDataLoader(get()) }
-        single { PlaylistSongDataLoader(get()) }
-        single { VoteDataLoader(get()) }
+        singleOf(::UserDataLoader)
+        singleOf(::SongDataLoader)
+        singleOf(::PlaylistDataLoader)
+        singleOf(::PlaylistSongDataLoader)
+        singleOf(::VoteDataLoader)
     }
 
 val graphQLModule =
     module {
-        single { ExampleSubscriptionService() }
+        singleOf(::ExampleSubscriptionService)
 
-        single { PlaylistQueryService(get(), get()) }
-        single { SongQueryService(get()) }
-        single { UserQueryService(get()) }
-        single { PlaylistSongQueryService(get(), get(), get(), get()) }
-        single { VoteQueryService(get(), get(), get()) }
+        singleOf(::PlaylistQueryService)
+        singleOf(::SongQueryService)
+        singleOf(::UserQueryService)
+        singleOf(::PlaylistSongQueryService)
+        singleOf(::VoteQueryService)
 
-        single { PlaylistMutationService(get(), get()) }
-        single { SongMutationService(get()) }
-        single { UserMutationService(get()) }
-        single { PlaylistSongMutationService(get(), get(), get(), get()) }
-        single { VoteMutationService(get(), get(), get()) }
+        singleOf(::PlaylistMutationService)
+        singleOf(::SongMutationService)
+        singleOf(::UserMutationService)
+        singleOf(::PlaylistSongMutationService)
+        singleOf(::VoteMutationService)
 
-        single { CustomGraphQLContextFactory() }
+        singleOf(::CustomGraphQLContextFactory)
     }
 
 val appModules =

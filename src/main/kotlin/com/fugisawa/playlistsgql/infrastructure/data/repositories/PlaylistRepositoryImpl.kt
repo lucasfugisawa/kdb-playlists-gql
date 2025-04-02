@@ -1,14 +1,14 @@
 package com.fugisawa.playlistsgql.data.repositories
 
 import com.fugisawa.playlistsgql.config.DatabaseConfig
-import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistDao
-import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistTable
 import com.fugisawa.playlistsgql.data.mappers.toDao
 import com.fugisawa.playlistsgql.data.mappers.toEntities
 import com.fugisawa.playlistsgql.data.mappers.toEntity
 import com.fugisawa.playlistsgql.domain.models.Playlist
 import com.fugisawa.playlistsgql.domain.models.User
 import com.fugisawa.playlistsgql.domain.repositories.PlaylistRepository
+import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistDao
+import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistTable
 import java.util.UUID
 
 class PlaylistRepositoryImpl(

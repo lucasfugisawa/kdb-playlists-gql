@@ -1,7 +1,7 @@
 package com.fugisawa.playlistsgql.data.mappers
 
-import com.fugisawa.playlistsgql.infrastructure.data.dao.VoteDao
 import com.fugisawa.playlistsgql.domain.models.Vote
+import com.fugisawa.playlistsgql.infrastructure.data.dao.VoteDao
 
 fun VoteDao.toEntity(): Vote =
     Vote(
