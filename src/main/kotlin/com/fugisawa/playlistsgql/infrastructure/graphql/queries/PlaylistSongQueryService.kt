@@ -15,20 +15,23 @@ class PlaylistSongQueryService(
     private val songService: SongService,
     private val userService: UserService,
 ) : Query {
-    suspend fun playlistSong(id: UUID): PlaylistSong? {
-        return playlistSongService.getById(id)
-    }
+    suspend fun playlistSong(id: UUID): PlaylistSong? = playlistSongService.getById(id)
 
-    suspend fun playlistSongs(filter: PlaylistSongFilter? = null, limit: Int? = null, offset: Int? = null): List<PlaylistSong> {
+    suspend fun playlistSongs(
+        filter: PlaylistSongFilter? = null,
+        limit: Int? = null,
+        offset: Int? = null,
+    ): List<PlaylistSong> {
         val allPlaylistSongs = playlistSongService.getAll()
 
-        val filteredPlaylistSongs = allPlaylistSongs.filter { playlistSong ->
-            (filter?.ids == null || filter.ids.contains(playlistSong.id)) &&
-            (filter?.playlistId == null || playlistSong.playlist.id == filter.playlistId) &&
-            (filter?.songId == null || playlistSong.song.id == filter.songId) &&
-            (filter?.addedById == null || playlistSong.addedBy.id == filter.addedById) &&
-            (filter?.position == null || playlistSong.position == filter.position)
-        }
+        val filteredPlaylistSongs =
+            allPlaylistSongs.filter { playlistSong ->
+                (filter?.ids == null || filter.ids.contains(playlistSong.id)) &&
+                    (filter?.playlistId == null || playlistSong.playlist.id == filter.playlistId) &&
+                    (filter?.songId == null || playlistSong.song.id == filter.songId) &&
+                    (filter?.addedById == null || playlistSong.addedBy.id == filter.addedById) &&
+                    (filter?.position == null || playlistSong.position == filter.position)
+            }
 
         return filteredPlaylistSongs
             .let { if (offset != null) it.drop(offset) else it }

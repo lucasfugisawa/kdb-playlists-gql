@@ -11,21 +11,24 @@ class PlaylistQueryService(
     private val playlistService: PlaylistService,
     private val userService: UserService,
 ) : Query {
-    suspend fun playlist(id: UUID): Playlist? {
-        return playlistService.getById(id)
-    }
+    suspend fun playlist(id: UUID): Playlist? = playlistService.getById(id)
 
-    suspend fun playlists(filter: PlaylistFilter? = null, limit: Int? = null, offset: Int? = null): List<Playlist> {
+    suspend fun playlists(
+        filter: PlaylistFilter? = null,
+        limit: Int? = null,
+        offset: Int? = null,
+    ): List<Playlist> {
         val allPlaylists = playlistService.getAll()
 
-        val filteredPlaylists = allPlaylists.filter { playlist ->
-            (filter?.ids == null || filter.ids.contains(playlist.id)) &&
-            (filter?.creatorId == null || playlist.creator.id == filter.creatorId) &&
-            (filter?.tag == null || playlist.tags.contains(filter.tag)) &&
-            (filter?.title == null || playlist.title.contains(filter.title, ignoreCase = true)) &&
-            (filter?.createdBefore == null || playlist.createdAt.isBefore(filter.createdBefore)) &&
-            (filter?.createdAfter == null || playlist.createdAt.isAfter(filter.createdAfter))
-        }
+        val filteredPlaylists =
+            allPlaylists.filter { playlist ->
+                (filter?.ids == null || filter.ids.contains(playlist.id)) &&
+                    (filter?.creatorId == null || playlist.creator.id == filter.creatorId) &&
+                    (filter?.tag == null || playlist.tags.contains(filter.tag)) &&
+                    (filter?.title == null || playlist.title.contains(filter.title, ignoreCase = true)) &&
+                    (filter?.createdBefore == null || playlist.createdAt.isBefore(filter.createdBefore)) &&
+                    (filter?.createdAfter == null || playlist.createdAt.isAfter(filter.createdAfter))
+            }
 
         return filteredPlaylists
             .let { if (offset != null) it.drop(offset) else it }

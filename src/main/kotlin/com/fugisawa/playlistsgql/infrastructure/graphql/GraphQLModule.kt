@@ -82,21 +82,23 @@ fun Application.configureGraphQL() {
         schema {
             packages = listOf("com.fugisawa.playlistsgql")
 
-            queries = listOf(
-                playlistQueryService,
-                songQueryService,
-                userQueryService,
-                playlistSongQueryService,
-                voteQueryService
-            )
+            queries =
+                listOf(
+                    playlistQueryService,
+                    songQueryService,
+                    userQueryService,
+                    playlistSongQueryService,
+                    voteQueryService,
+                )
 
-            mutations = listOf(
-                playlistMutationService,
-                songMutationService,
-                userMutationService,
-                playlistSongMutationService,
-                voteMutationService
-            )
+            mutations =
+                listOf(
+                    playlistMutationService,
+                    songMutationService,
+                    userMutationService,
+                    playlistSongMutationService,
+                    voteMutationService,
+                )
 
             // subscriptions = listOf(exampleSubscriptionService)
 
@@ -104,13 +106,14 @@ fun Application.configureGraphQL() {
         }
 
         engine {
-            dataLoaderRegistryFactory = KotlinDataLoaderRegistryFactory(
-                userDataLoader,
-                songDataLoader,
-                playlistDataLoader,
-                playlistSongDataLoader,
-                voteDataLoader
-            )
+            dataLoaderRegistryFactory =
+                KotlinDataLoaderRegistryFactory(
+                    userDataLoader,
+                    songDataLoader,
+                    playlistDataLoader,
+                    playlistSongDataLoader,
+                    voteDataLoader,
+                )
         }
 
         server {

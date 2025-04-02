@@ -4,28 +4,18 @@ import com.fugisawa.playlistsgql.domain.models.User
 import com.fugisawa.playlistsgql.domain.repositories.UserRepository
 import java.util.UUID
 
-class UserService(private val userRepository: UserRepository) {
-    suspend fun getById(id: UUID): User? {
-        return userRepository.getById(id)
-    }
+class UserService(
+    private val userRepository: UserRepository,
+) {
+    suspend fun getById(id: UUID): User? = userRepository.getById(id)
 
-    suspend fun getAll(): List<User> {
-        return userRepository.getAll()
-    }
+    suspend fun getAll(): List<User> = userRepository.getAll()
 
-    suspend fun findByUsername(username: String): User? {
-        return userRepository.findByUsername(username)
-    }
+    suspend fun findByUsername(username: String): User? = userRepository.findByUsername(username)
 
-    suspend fun create(user: User): User {
-        return userRepository.create(user)
-    }
+    suspend fun create(user: User): User = userRepository.create(user)
 
-    suspend fun update(user: User): User {
-        return userRepository.update(user)
-    }
+    suspend fun update(user: User): User = userRepository.update(user)
 
-    suspend fun delete(id: UUID): Boolean {
-        return userRepository.delete(id)
-    }
+    suspend fun delete(id: UUID): Boolean = userRepository.delete(id)
 }

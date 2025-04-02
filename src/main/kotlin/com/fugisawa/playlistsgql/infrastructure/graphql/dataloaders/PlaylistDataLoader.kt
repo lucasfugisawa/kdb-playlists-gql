@@ -4,22 +4,25 @@ import com.expediagroup.graphql.dataloader.KotlinDataLoader
 import com.fugisawa.playlistsgql.domain.models.Playlist
 import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import graphql.GraphQLContext
-import kotlin.coroutines.EmptyCoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.future.future
 import org.dataloader.DataLoader
 import org.dataloader.DataLoaderFactory
 import org.dataloader.DataLoaderOptions
 import java.util.UUID
+import kotlin.coroutines.EmptyCoroutineContext
 
-class PlaylistDataLoader(private val playlistService: PlaylistService) : KotlinDataLoader<UUID, Playlist?> {
+class PlaylistDataLoader(
+    private val playlistService: PlaylistService,
+) : KotlinDataLoader<UUID, Playlist?> {
     override val dataLoaderName = "PlaylistDataLoader"
 
-    override fun getDataLoader(graphQLContext: GraphQLContext): DataLoader<UUID, Playlist?> {
-        return DataLoaderFactory.newDataLoader(
+    override fun getDataLoader(graphQLContext: GraphQLContext): DataLoader<UUID, Playlist?> =
+        DataLoaderFactory.newDataLoader(
             { ids, batchLoaderEnvironment ->
-                val coroutineScope = batchLoaderEnvironment.getContext<GraphQLContext>()?.get<CoroutineScope>(CoroutineScope::class)
-                    ?: CoroutineScope(EmptyCoroutineContext)
+                val coroutineScope =
+                    batchLoaderEnvironment.getContext<GraphQLContext>()?.get<CoroutineScope>(CoroutineScope::class)
+                        ?: CoroutineScope(EmptyCoroutineContext)
 
                 coroutineScope.future {
                     val playlists = playlistService.getAll()
@@ -27,8 +30,8 @@ class PlaylistDataLoader(private val playlistService: PlaylistService) : KotlinD
                     ids.map { playlistMap[it] }
                 }
             },
-            DataLoaderOptions.newOptions()
-                .setBatchLoaderContextProvider { graphQLContext }
+            DataLoaderOptions
+                .newOptions()
+                .setBatchLoaderContextProvider { graphQLContext },
         )
-    }
 }

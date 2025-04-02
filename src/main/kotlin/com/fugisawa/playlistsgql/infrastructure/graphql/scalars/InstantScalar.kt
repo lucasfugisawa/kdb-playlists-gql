@@ -16,20 +16,23 @@ val instantScalar =
         .build()
 
 object InstantCoercing : Coercing<Instant, String> {
-    override fun parseValue(input: Any): Instant = try {
-        Instant.parse(input.toString())
-    } catch (e: DateTimeParseException) {
-        throw IllegalArgumentException("Invalid Instant format: ${input.toString()}")
-    }
+    override fun parseValue(input: Any): Instant =
+        try {
+            Instant.parse(input.toString())
+        } catch (e: DateTimeParseException) {
+            throw IllegalArgumentException("Invalid Instant format: $input")
+        }
 
-    override fun parseLiteral(input: Any): Instant = try {
-        Instant.parse((input as StringValue).value)
-    } catch (e: DateTimeParseException) {
-        throw IllegalArgumentException("Invalid Instant format: ${(input as StringValue).value}")
-    }
+    override fun parseLiteral(input: Any): Instant =
+        try {
+            Instant.parse((input as StringValue).value)
+        } catch (e: DateTimeParseException) {
+            throw IllegalArgumentException("Invalid Instant format: ${(input as StringValue).value}")
+        }
 
-    override fun serialize(dataFetcherResult: Any): String = when (dataFetcherResult) {
-        is Instant -> DateTimeFormatter.ISO_INSTANT.format(dataFetcherResult)
-        else -> dataFetcherResult.toString()
-    }
+    override fun serialize(dataFetcherResult: Any): String =
+        when (dataFetcherResult) {
+            is Instant -> DateTimeFormatter.ISO_INSTANT.format(dataFetcherResult)
+            else -> dataFetcherResult.toString()
+        }
 }

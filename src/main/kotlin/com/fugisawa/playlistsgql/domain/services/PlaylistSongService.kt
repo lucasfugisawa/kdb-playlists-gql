@@ -7,43 +7,27 @@ import com.fugisawa.playlistsgql.domain.models.User
 import com.fugisawa.playlistsgql.domain.repositories.PlaylistSongRepository
 import java.util.UUID
 
-class PlaylistSongService(private val playlistSongRepository: PlaylistSongRepository) {
-    suspend fun getById(id: UUID): PlaylistSong? {
-        return playlistSongRepository.getById(id)
-    }
+class PlaylistSongService(
+    private val playlistSongRepository: PlaylistSongRepository,
+) {
+    suspend fun getById(id: UUID): PlaylistSong? = playlistSongRepository.getById(id)
 
-    suspend fun getAll(): List<PlaylistSong> {
-        return playlistSongRepository.getAll()
-    }
+    suspend fun getAll(): List<PlaylistSong> = playlistSongRepository.getAll()
 
-    suspend fun findByPlaylist(playlist: Playlist): List<PlaylistSong> {
-        return playlistSongRepository.findByPlaylist(playlist)
-    }
+    suspend fun findByPlaylist(playlist: Playlist): List<PlaylistSong> = playlistSongRepository.findByPlaylist(playlist)
 
-    suspend fun findBySong(song: Song): List<PlaylistSong> {
-        return playlistSongRepository.findBySong(song)
-    }
+    suspend fun findBySong(song: Song): List<PlaylistSong> = playlistSongRepository.findBySong(song)
 
-    suspend fun findByAddedBy(user: User): List<PlaylistSong> {
-        return playlistSongRepository.findByAddedBy(user)
-    }
+    suspend fun findByAddedBy(user: User): List<PlaylistSong> = playlistSongRepository.findByAddedBy(user)
 
     suspend fun findByPlaylistAndPosition(
         playlist: Playlist,
         position: Int,
-    ): PlaylistSong? {
-        return playlistSongRepository.findByPlaylistAndPosition(playlist, position)
-    }
+    ): PlaylistSong? = playlistSongRepository.findByPlaylistAndPosition(playlist, position)
 
-    suspend fun create(playlistSong: PlaylistSong): PlaylistSong {
-        return playlistSongRepository.create(playlistSong)
-    }
+    suspend fun create(playlistSong: PlaylistSong): PlaylistSong = playlistSongRepository.create(playlistSong)
 
-    suspend fun update(playlistSong: PlaylistSong): PlaylistSong {
-        return playlistSongRepository.update(playlistSong)
-    }
+    suspend fun update(playlistSong: PlaylistSong): PlaylistSong = playlistSongRepository.update(playlistSong)
 
-    suspend fun delete(id: UUID): Boolean {
-        return playlistSongRepository.delete(id)
-    }
+    suspend fun delete(id: UUID): Boolean = playlistSongRepository.delete(id)
 }

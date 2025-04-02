@@ -22,12 +22,13 @@ class PlaylistSongMutationService(
         val song = songService.getById(input.songId) ?: return null
         val addedBy = userService.getById(input.addedById) ?: return null
 
-        val playlistSong = PlaylistSong(
-            playlist = playlist,
-            song = song,
-            addedBy = addedBy,
-            position = input.position,
-        )
+        val playlistSong =
+            PlaylistSong(
+                playlist = playlist,
+                song = song,
+                addedBy = addedBy,
+                position = input.position,
+            )
 
         return playlistSongService.create(playlistSong)
     }
@@ -37,16 +38,16 @@ class PlaylistSongMutationService(
         input: PlaylistSongUpdateInput,
     ): PlaylistSong? {
         val existingPlaylistSong = playlistSongService.getById(id) ?: return null
-        val updatedPlaylistSong = existingPlaylistSong.copy(
-            position = when (val position = input.position) {
-                is OptionalInput.Defined -> position.value ?: existingPlaylistSong.position
-                else -> existingPlaylistSong.position
-            },
-        )
+        val updatedPlaylistSong =
+            existingPlaylistSong.copy(
+                position =
+                    when (val position = input.position) {
+                        is OptionalInput.Defined -> position.value ?: existingPlaylistSong.position
+                        else -> existingPlaylistSong.position
+                    },
+            )
         return playlistSongService.update(updatedPlaylistSong)
     }
 
-    suspend fun removeSongFromPlaylist(id: UUID): Boolean {
-        return playlistSongService.delete(id)
-    }
+    suspend fun removeSongFromPlaylist(id: UUID): Boolean = playlistSongService.delete(id)
 }

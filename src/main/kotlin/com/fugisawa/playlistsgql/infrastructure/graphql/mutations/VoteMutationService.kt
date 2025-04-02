@@ -28,11 +28,12 @@ class VoteMutationService(
             return voteService.update(updatedVote)
         }
 
-        val vote = Vote(
-            playlistSong = playlistSong,
-            user = user,
-            type = input.type,
-        )
+        val vote =
+            Vote(
+                playlistSong = playlistSong,
+                user = user,
+                type = input.type,
+            )
 
         return voteService.create(vote)
     }
@@ -42,16 +43,16 @@ class VoteMutationService(
         input: VoteUpdateInput,
     ): Vote? {
         val existingVote = voteService.getById(id) ?: return null
-        val updatedVote = existingVote.copy(
-            type = when (val type = input.type) {
-                is OptionalInput.Defined -> type.value ?: existingVote.type
-                else -> existingVote.type
-            }
-        )
+        val updatedVote =
+            existingVote.copy(
+                type =
+                    when (val type = input.type) {
+                        is OptionalInput.Defined -> type.value ?: existingVote.type
+                        else -> existingVote.type
+                    },
+            )
         return voteService.update(updatedVote)
     }
 
-    suspend fun deleteVote(id: UUID): Boolean {
-        return voteService.delete(id)
-    }
+    suspend fun deleteVote(id: UUID): Boolean = voteService.delete(id)
 }

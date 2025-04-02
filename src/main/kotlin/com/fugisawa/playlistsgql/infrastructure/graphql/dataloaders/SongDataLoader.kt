@@ -4,22 +4,25 @@ import com.expediagroup.graphql.dataloader.KotlinDataLoader
 import com.fugisawa.playlistsgql.domain.models.Song
 import com.fugisawa.playlistsgql.domain.services.SongService
 import graphql.GraphQLContext
-import kotlin.coroutines.EmptyCoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.future.future
 import org.dataloader.DataLoader
 import org.dataloader.DataLoaderFactory
 import org.dataloader.DataLoaderOptions
 import java.util.UUID
+import kotlin.coroutines.EmptyCoroutineContext
 
-class SongDataLoader(private val songService: SongService) : KotlinDataLoader<UUID, Song?> {
+class SongDataLoader(
+    private val songService: SongService,
+) : KotlinDataLoader<UUID, Song?> {
     override val dataLoaderName = "SongDataLoader"
 
-    override fun getDataLoader(graphQLContext: GraphQLContext): DataLoader<UUID, Song?> {
-        return DataLoaderFactory.newDataLoader(
+    override fun getDataLoader(graphQLContext: GraphQLContext): DataLoader<UUID, Song?> =
+        DataLoaderFactory.newDataLoader(
             { ids, batchLoaderEnvironment ->
-                val coroutineScope = batchLoaderEnvironment.getContext<GraphQLContext>()?.get<CoroutineScope>(CoroutineScope::class)
-                    ?: CoroutineScope(EmptyCoroutineContext)
+                val coroutineScope =
+                    batchLoaderEnvironment.getContext<GraphQLContext>()?.get<CoroutineScope>(CoroutineScope::class)
+                        ?: CoroutineScope(EmptyCoroutineContext)
 
                 coroutineScope.future {
                     val songs = songService.getAll()
@@ -27,8 +30,8 @@ class SongDataLoader(private val songService: SongService) : KotlinDataLoader<UU
                     ids.map { songMap[it] }
                 }
             },
-            DataLoaderOptions.newOptions()
-                .setBatchLoaderContextProvider { graphQLContext }
+            DataLoaderOptions
+                .newOptions()
+                .setBatchLoaderContextProvider { graphQLContext },
         )
-    }
 }

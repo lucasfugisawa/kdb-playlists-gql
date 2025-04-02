@@ -21,7 +21,7 @@ class CustomGraphQLContextFactory : DefaultKtorGraphQLContextFactory() {
                         id = UUID.randomUUID(),
                         username = "test",
                     ),
-                CoroutineScope::class to coroutineScope
+                CoroutineScope::class to coroutineScope,
             ).also { map ->
                 request.headers["my-custom-header"]?.let { customHeader ->
                     map["customHeader"] = customHeader

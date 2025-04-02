@@ -9,9 +9,10 @@ import java.util.UUID
 import kotlin.reflect.KType
 
 class CustomSchemaHooks : FlowSubscriptionSchemaGeneratorHooks() {
-    override fun willGenerateGraphQLType(type: KType): GraphQLType? = when (type.classifier) {
-        UUID::class -> uuidScalar
-        Instant::class -> instantScalar
-        else -> null
-    }
+    override fun willGenerateGraphQLType(type: KType): GraphQLType? =
+        when (type.classifier) {
+            UUID::class -> uuidScalar
+            Instant::class -> instantScalar
+            else -> null
+        }
 }

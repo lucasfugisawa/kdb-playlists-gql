@@ -5,36 +5,22 @@ import com.fugisawa.playlistsgql.domain.models.User
 import com.fugisawa.playlistsgql.domain.repositories.PlaylistRepository
 import java.util.UUID
 
-class PlaylistService(private val playlistRepository: PlaylistRepository) {
-    suspend fun getById(id: UUID): Playlist? {
-        return playlistRepository.getById(id)
-    }
+class PlaylistService(
+    private val playlistRepository: PlaylistRepository,
+) {
+    suspend fun getById(id: UUID): Playlist? = playlistRepository.getById(id)
 
-    suspend fun getAll(): List<Playlist> {
-        return playlistRepository.getAll()
-    }
+    suspend fun getAll(): List<Playlist> = playlistRepository.getAll()
 
-    suspend fun findByTitle(title: String): List<Playlist> {
-        return playlistRepository.findByTitle(title)
-    }
+    suspend fun findByTitle(title: String): List<Playlist> = playlistRepository.findByTitle(title)
 
-    suspend fun findByCreator(creator: User): List<Playlist> {
-        return playlistRepository.findByCreator(creator)
-    }
+    suspend fun findByCreator(creator: User): List<Playlist> = playlistRepository.findByCreator(creator)
 
-    suspend fun findByTag(tag: String): List<Playlist> {
-        return playlistRepository.findByTag(tag)
-    }
+    suspend fun findByTag(tag: String): List<Playlist> = playlistRepository.findByTag(tag)
 
-    suspend fun create(playlist: Playlist): Playlist {
-        return playlistRepository.create(playlist)
-    }
+    suspend fun create(playlist: Playlist): Playlist = playlistRepository.create(playlist)
 
-    suspend fun update(playlist: Playlist): Playlist {
-        return playlistRepository.update(playlist)
-    }
+    suspend fun update(playlist: Playlist): Playlist = playlistRepository.update(playlist)
 
-    suspend fun delete(id: UUID): Boolean {
-        return playlistRepository.delete(id)
-    }
+    suspend fun delete(id: UUID): Boolean = playlistRepository.delete(id)
 }

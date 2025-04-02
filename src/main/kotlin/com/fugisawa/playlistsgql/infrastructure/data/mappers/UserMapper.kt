@@ -9,7 +9,6 @@ fun UserDao.toEntity(): User =
         username = this.username,
     )
 
-fun User.toDao(): UserDao =
-    UserDao.create(this.id, this.username)
+fun User.toDao(): UserDao = UserDao.create(this.id, this.username)
 
 fun List<UserDao>.toEntities(): List<User> = this.map { it.toEntity() }

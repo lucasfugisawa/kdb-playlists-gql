@@ -12,9 +12,10 @@ class UserMutationService(
     private val userService: UserService,
 ) : Mutation {
     suspend fun createUser(input: UserCreateInput): User {
-        val user = User(
-            username = input.username,
-        )
+        val user =
+            User(
+                username = input.username,
+            )
         return userService.create(user)
     }
 
@@ -23,16 +24,16 @@ class UserMutationService(
         input: UserUpdateInput,
     ): User? {
         val existingUser = userService.getById(id) ?: return null
-        val updatedUser = existingUser.copy(
-            username = when (val username = input.username) {
-                is OptionalInput.Defined -> username.value ?: existingUser.username
-                else -> existingUser.username
-            },
-        )
+        val updatedUser =
+            existingUser.copy(
+                username =
+                    when (val username = input.username) {
+                        is OptionalInput.Defined -> username.value ?: existingUser.username
+                        else -> existingUser.username
+                    },
+            )
         return userService.update(updatedUser)
     }
 
-    suspend fun deleteUser(id: UUID): Boolean {
-        return userService.delete(id)
-    }
+    suspend fun deleteUser(id: UUID): Boolean = userService.delete(id)
 }
