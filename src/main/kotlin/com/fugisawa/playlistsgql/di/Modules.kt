@@ -16,8 +16,7 @@ import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.domain.services.VoteService
-import com.fugisawa.playlistsgql.graphql.context.CustomGraphQLContextFactory
-import com.fugisawa.playlistsgql.graphql.subscriptions.ExampleSubscriptionService
+import com.fugisawa.playlistsgql.infrastructure.graphql.CustomGraphQLContextFactory
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.PlaylistDataLoader
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.PlaylistSongDataLoader
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.SongDataLoader
@@ -33,6 +32,7 @@ import com.fugisawa.playlistsgql.infrastructure.graphql.queries.PlaylistSongQuer
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.SongQueryService
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.UserQueryService
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.VoteQueryService
+import com.fugisawa.playlistsgql.infrastructure.graphql.subscriptions.ExampleSubscriptionService
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module

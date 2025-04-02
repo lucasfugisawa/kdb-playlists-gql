@@ -50,13 +50,15 @@ fun Application.configureGraphQL() {
     val playlistSongMutationService by inject<PlaylistSongMutationService>()
     val voteMutationService by inject<VoteMutationService>()
 
-    val exampleSubscriptionService by inject<ExampleSubscriptionService>()
+    // val exampleSubscriptionService by inject<ExampleSubscriptionService>()
 
     val userDataLoader by inject<UserDataLoader>()
     val songDataLoader by inject<SongDataLoader>()
     val playlistDataLoader by inject<PlaylistDataLoader>()
     val playlistSongDataLoader by inject<PlaylistSongDataLoader>()
     val voteDataLoader by inject<VoteDataLoader>()
+
+    val customGraphQLContextFactory by inject<CustomGraphQLContextFactory>()
 
     install(WebSockets) {
         pingPeriod = 1.seconds
@@ -113,7 +115,7 @@ fun Application.configureGraphQL() {
         }
 
         server {
-            contextFactory = CustomGraphQLContextFactory()
+            contextFactory = customGraphQLContextFactory
         }
     }
 
