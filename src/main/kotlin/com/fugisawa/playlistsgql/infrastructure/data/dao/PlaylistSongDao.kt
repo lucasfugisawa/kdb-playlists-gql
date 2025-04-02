@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.data.dao
+package com.fugisawa.playlistsgql.infrastructure.data.dao
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -24,7 +24,7 @@ class PlaylistSongDao(
     companion object : UUIDEntityClass<PlaylistSongDao>(PlaylistSongTable)
 
     var playlist by PlaylistDao referencedOn PlaylistSongTable.playlist
-    var song by SongDao referencedOn PlaylistSongTable.song
-    var addedBy by UserDao referencedOn PlaylistSongTable.addedBy
+    var song by SongDao.Companion referencedOn PlaylistSongTable.song
+    var addedBy by UserDao.Companion referencedOn PlaylistSongTable.addedBy
     var position by PlaylistSongTable.position
 }

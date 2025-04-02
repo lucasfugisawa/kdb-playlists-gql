@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.com.fugisawa.playlistsgql
+package com.fugisawa.playlistsgql
 
 import io.ktor.server.application.Application
 import io.ktor.server.response.respondText

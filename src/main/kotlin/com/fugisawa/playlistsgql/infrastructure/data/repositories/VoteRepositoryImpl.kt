@@ -1,8 +1,8 @@
 package com.fugisawa.playlistsgql.data.repositories
 
 import com.fugisawa.playlistsgql.config.DatabaseConfig
-import com.fugisawa.playlistsgql.data.dao.VoteDao
-import com.fugisawa.playlistsgql.data.dao.VoteTable
+import com.fugisawa.playlistsgql.infrastructure.data.dao.VoteDao
+import com.fugisawa.playlistsgql.infrastructure.data.dao.VoteTable
 import com.fugisawa.playlistsgql.data.mappers.toDao
 import com.fugisawa.playlistsgql.data.mappers.toEntities
 import com.fugisawa.playlistsgql.data.mappers.toEntity

@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.data.dao
+package com.fugisawa.playlistsgql.infrastructure.data.dao
 
 import com.fugisawa.playlistsgql.data.models.enums.VoteType
 import org.jetbrains.exposed.dao.UUIDEntity

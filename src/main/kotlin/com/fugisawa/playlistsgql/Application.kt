@@ -1,6 +1,5 @@
 package com.fugisawa.playlistsgql
 
-import com.fugisawa.playlistsgql.com.fugisawa.playlistsgql.configureRouting
 import com.fugisawa.playlistsgql.di.appModules
 import com.fugisawa.playlistsgql.infrastructure.config.database.configureDatabases
 import com.fugisawa.playlistsgql.infrastructure.graphql.configureGraphQL

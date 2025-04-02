@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.com.fugisawa.playlistsgql.infrastructure.graphql.scalars
+package com.fugisawa.playlistsgql.infrastructure.graphql.scalars
 
 import graphql.language.StringValue
 import graphql.schema.Coercing
