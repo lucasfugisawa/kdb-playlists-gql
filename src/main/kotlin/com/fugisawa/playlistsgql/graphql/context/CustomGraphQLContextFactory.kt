@@ -11,7 +11,6 @@ import kotlinx.coroutines.SupervisorJob
 import java.util.UUID
 
 class CustomGraphQLContextFactory : DefaultKtorGraphQLContextFactory() {
-    // Create a CoroutineScope with SupervisorJob to prevent child coroutines from cancelling the parent
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     override suspend fun generateContext(request: ApplicationRequest): GraphQLContext =
@@ -22,7 +21,6 @@ class CustomGraphQLContextFactory : DefaultKtorGraphQLContextFactory() {
                         id = UUID.randomUUID(),
                         username = "test",
                     ),
-                // Add the CoroutineScope to the context
                 CoroutineScope::class to coroutineScope
             ).also { map ->
                 request.headers["my-custom-header"]?.let { customHeader ->

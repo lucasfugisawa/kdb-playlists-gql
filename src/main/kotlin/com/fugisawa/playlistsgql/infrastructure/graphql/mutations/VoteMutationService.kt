@@ -21,19 +21,15 @@ class VoteMutationService(
         val playlistSong = playlistSongService.getById(playlistSongId) ?: return null
         val user = userService.getById(userId) ?: return null
         
-        // Check if user already voted for this playlist song
         val existingVote = voteService.findByPlaylistSongAndUser(playlistSong, user)
         if (existingVote != null) {
-            // If vote exists with the same type, return it
             if (existingVote.type == type) {
                 return existingVote
             }
-            // If vote exists with different type, update it
             val updatedVote = existingVote.copy(type = type)
             return voteService.update(updatedVote)
         }
         
-        // Create new vote
         val vote = Vote(
             playlistSong = playlistSong,
             user = user,

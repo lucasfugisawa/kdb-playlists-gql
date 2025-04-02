@@ -1,11 +1,11 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
-import com.fugisawa.playlistsgql.data.models.enums.VoteType
 import com.fugisawa.playlistsgql.domain.models.Vote
 import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.domain.services.VoteService
+import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.VoteFilter
 import java.util.UUID
 
 class VoteQueryService(
@@ -17,27 +17,20 @@ class VoteQueryService(
         return voteService.getById(id)
     }
 
-    suspend fun votes(): List<Vote> {
-        return voteService.getAll()
-    }
+    suspend fun votes(filter: VoteFilter? = null, limit: Int? = null, offset: Int? = null): List<Vote> {
+        val allVotes = voteService.getAll()
 
-    suspend fun votesByPlaylistSong(playlistSongId: UUID): List<Vote> {
-        val playlistSong = playlistSongService.getById(playlistSongId) ?: return emptyList()
-        return voteService.findByPlaylistSong(playlistSong)
-    }
+        val filteredVotes = allVotes.filter { vote ->
+            (filter?.ids == null || filter.ids.contains(vote.id)) &&
+            (filter?.userId == null || vote.user.id == filter.userId) &&
+            (filter?.playlistSongId == null || vote.playlistSong.id == filter.playlistSongId) &&
+            (filter?.type == null || vote.type == filter.type) &&
+            (filter?.createdBefore == null || vote.createdAt.isBefore(filter.createdBefore)) &&
+            (filter?.createdAfter == null || vote.createdAt.isAfter(filter.createdAfter))
+        }
 
-    suspend fun votesByUser(userId: UUID): List<Vote> {
-        val user = userService.getById(userId) ?: return emptyList()
-        return voteService.findByUser(user)
-    }
-
-    suspend fun voteByPlaylistSongAndUser(playlistSongId: UUID, userId: UUID): Vote? {
-        val playlistSong = playlistSongService.getById(playlistSongId) ?: return null
-        val user = userService.getById(userId) ?: return null
-        return voteService.findByPlaylistSongAndUser(playlistSong, user)
-    }
-
-    suspend fun votesByType(type: VoteType): List<Vote> {
-        return voteService.findByType(type)
+        return filteredVotes
+            .let { if (offset != null) it.drop(offset) else it }
+            .let { if (limit != null) it.take(limit) else it }
     }
 }

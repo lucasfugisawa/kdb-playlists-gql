@@ -73,19 +73,16 @@ val dataLoaderModule =
 
 val graphQLModule =
     module {
-        // Original services
         single { HelloQueryService() }
         single { LoginMutationService() }
         single { ExampleSubscriptionService() }
 
-        // Query services
         single { PlaylistQueryService(get(), get()) }
         single { SongQueryService(get()) }
         single { UserQueryService(get()) }
         single { PlaylistSongQueryService(get(), get(), get(), get()) }
         single { VoteQueryService(get(), get(), get()) }
 
-        // Mutation services
         single { PlaylistMutationService(get(), get()) }
         single { SongMutationService(get()) }
         single { UserMutationService(get()) }

@@ -6,6 +6,7 @@ import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.domain.services.UserService
+import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistSongFilter
 import java.util.UUID
 
 class PlaylistSongQueryService(
@@ -18,27 +19,19 @@ class PlaylistSongQueryService(
         return playlistSongService.getById(id)
     }
 
-    suspend fun playlistSongs(): List<PlaylistSong> {
-        return playlistSongService.getAll()
-    }
+    suspend fun playlistSongs(filter: PlaylistSongFilter? = null, limit: Int? = null, offset: Int? = null): List<PlaylistSong> {
+        val allPlaylistSongs = playlistSongService.getAll()
 
-    suspend fun playlistSongsByPlaylist(playlistId: UUID): List<PlaylistSong> {
-        val playlist = playlistService.getById(playlistId) ?: return emptyList()
-        return playlistSongService.findByPlaylist(playlist)
-    }
+        val filteredPlaylistSongs = allPlaylistSongs.filter { playlistSong ->
+            (filter?.ids == null || filter.ids.contains(playlistSong.id)) &&
+            (filter?.playlistId == null || playlistSong.playlist.id == filter.playlistId) &&
+            (filter?.songId == null || playlistSong.song.id == filter.songId) &&
+            (filter?.addedById == null || playlistSong.addedBy.id == filter.addedById) &&
+            (filter?.position == null || playlistSong.position == filter.position)
+        }
 
-    suspend fun playlistSongsBySong(songId: UUID): List<PlaylistSong> {
-        val song = songService.getById(songId) ?: return emptyList()
-        return playlistSongService.findBySong(song)
-    }
-
-    suspend fun playlistSongsByAddedBy(userId: UUID): List<PlaylistSong> {
-        val user = userService.getById(userId) ?: return emptyList()
-        return playlistSongService.findByAddedBy(user)
-    }
-
-    suspend fun playlistSongByPlaylistAndPosition(playlistId: UUID, position: Int): PlaylistSong? {
-        val playlist = playlistService.getById(playlistId) ?: return null
-        return playlistSongService.findByPlaylistAndPosition(playlist, position)
+        return filteredPlaylistSongs
+            .let { if (offset != null) it.drop(offset) else it }
+            .let { if (limit != null) it.take(limit) else it }
     }
 }

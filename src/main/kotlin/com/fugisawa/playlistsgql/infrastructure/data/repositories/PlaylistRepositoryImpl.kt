@@ -37,8 +37,6 @@ class PlaylistRepositoryImpl(
 
     override suspend fun findByTag(tag: String): List<Playlist> =
         databaseConfig.dbQuery {
-            // This is a simple implementation that checks if the tag is contained in the tags string
-            // A more sophisticated implementation would use a proper array type or a separate tags table
             PlaylistDao
                 .all()
                 .filter { playlist ->

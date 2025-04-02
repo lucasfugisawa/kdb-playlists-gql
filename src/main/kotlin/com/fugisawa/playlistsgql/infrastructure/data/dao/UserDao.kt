@@ -15,7 +15,6 @@ class UserDao(
     id: EntityID<UUID>,
 ) : UUIDEntity(id) {
     companion object : UUIDEntityClass<UserDao>(UserTable) {
-        // Override the new method to ensure username is initialized
         fun create(id: UUID, username: String): UserDao {
             return new(id) {
                 this.username = username

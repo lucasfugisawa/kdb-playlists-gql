@@ -18,11 +18,9 @@ class SongDataLoader(private val songService: SongService) : KotlinDataLoader<UU
     override fun getDataLoader(graphQLContext: GraphQLContext): DataLoader<UUID, Song?> {
         return DataLoaderFactory.newDataLoader(
             { ids, batchLoaderEnvironment ->
-                // Get the CoroutineScope from the GraphQL context
                 val coroutineScope = batchLoaderEnvironment.getContext<GraphQLContext>()?.get<CoroutineScope>(CoroutineScope::class)
                     ?: CoroutineScope(EmptyCoroutineContext)
 
-                // Use the future extension function to convert the coroutine to a CompletableFuture
                 coroutineScope.future {
                     val songs = songService.getAll()
                     val songMap = songs.associateBy { it.id }

@@ -40,7 +40,6 @@ import org.koin.ktor.ext.inject
 import kotlin.time.Duration.Companion.seconds
 
 fun Application.configureGraphQL() {
-    // Inject query services
     val helloQueryService by inject<HelloQueryService>()
     val playlistQueryService by inject<PlaylistQueryService>()
     val songQueryService by inject<SongQueryService>()
@@ -48,7 +47,6 @@ fun Application.configureGraphQL() {
     val playlistSongQueryService by inject<PlaylistSongQueryService>()
     val voteQueryService by inject<VoteQueryService>()
 
-    // Inject mutation services
     val loginMutationService by inject<LoginMutationService>()
     val playlistMutationService by inject<PlaylistMutationService>()
     val songMutationService by inject<SongMutationService>()
@@ -56,10 +54,8 @@ fun Application.configureGraphQL() {
     val playlistSongMutationService by inject<PlaylistSongMutationService>()
     val voteMutationService by inject<VoteMutationService>()
 
-    // Inject subscription services
     val exampleSubscriptionService by inject<ExampleSubscriptionService>()
 
-    // Inject data loaders
     val userDataLoader by inject<UserDataLoader>()
     val songDataLoader by inject<SongDataLoader>()
     val playlistDataLoader by inject<PlaylistDataLoader>()
@@ -86,7 +82,6 @@ fun Application.configureGraphQL() {
         schema {
             packages = listOf("com.fugisawa.playlistsgql")
 
-            // Register all query services
             queries = listOf(
                 playlistQueryService,
                 songQueryService,
@@ -95,7 +90,6 @@ fun Application.configureGraphQL() {
                 voteQueryService
             )
 
-            // Register all mutation services
             mutations = listOf(
                 playlistMutationService,
                 songMutationService,
@@ -104,14 +98,12 @@ fun Application.configureGraphQL() {
                 voteMutationService
             )
 
-            // Register all subscription services
             // subscriptions = listOf(exampleSubscriptionService)
 
             hooks = CustomSchemaHooks()
         }
 
         engine {
-            // Register all data loaders
             dataLoaderRegistryFactory = KotlinDataLoaderRegistryFactory(
                 userDataLoader,
                 songDataLoader,
