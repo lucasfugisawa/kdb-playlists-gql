@@ -13,13 +13,11 @@ import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.PlaylistSong
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.SongDataLoader
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.UserDataLoader
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.VoteDataLoader
-import com.fugisawa.playlistsgql.infrastructure.graphql.mutations.LoginMutationService
 import com.fugisawa.playlistsgql.infrastructure.graphql.mutations.PlaylistMutationService
 import com.fugisawa.playlistsgql.infrastructure.graphql.mutations.PlaylistSongMutationService
 import com.fugisawa.playlistsgql.infrastructure.graphql.mutations.SongMutationService
 import com.fugisawa.playlistsgql.infrastructure.graphql.mutations.UserMutationService
 import com.fugisawa.playlistsgql.infrastructure.graphql.mutations.VoteMutationService
-import com.fugisawa.playlistsgql.infrastructure.graphql.queries.HelloQueryService
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.PlaylistQueryService
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.PlaylistSongQueryService
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.SongQueryService
@@ -40,14 +38,12 @@ import org.koin.ktor.ext.inject
 import kotlin.time.Duration.Companion.seconds
 
 fun Application.configureGraphQL() {
-    val helloQueryService by inject<HelloQueryService>()
     val playlistQueryService by inject<PlaylistQueryService>()
     val songQueryService by inject<SongQueryService>()
     val userQueryService by inject<UserQueryService>()
     val playlistSongQueryService by inject<PlaylistSongQueryService>()
     val voteQueryService by inject<VoteQueryService>()
 
-    val loginMutationService by inject<LoginMutationService>()
     val playlistMutationService by inject<PlaylistMutationService>()
     val songMutationService by inject<SongMutationService>()
     val userMutationService by inject<UserMutationService>()

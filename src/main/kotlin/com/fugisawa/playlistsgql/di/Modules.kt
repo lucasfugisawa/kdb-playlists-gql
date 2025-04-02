@@ -17,8 +17,6 @@ import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.domain.services.VoteService
 import com.fugisawa.playlistsgql.graphql.context.CustomGraphQLContextFactory
-import com.fugisawa.playlistsgql.graphql.mutations.LoginMutationService
-import com.fugisawa.playlistsgql.graphql.queries.HelloQueryService
 import com.fugisawa.playlistsgql.graphql.subscriptions.ExampleSubscriptionService
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.PlaylistDataLoader
 import com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders.PlaylistSongDataLoader
@@ -73,8 +71,6 @@ val dataLoaderModule =
 
 val graphQLModule =
     module {
-        single { HelloQueryService() }
-        single { LoginMutationService() }
         single { ExampleSubscriptionService() }
 
         single { PlaylistQueryService(get(), get()) }
