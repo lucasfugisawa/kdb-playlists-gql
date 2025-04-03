@@ -19,6 +19,15 @@ class PlaylistRepositoryImpl(
             PlaylistDao.findById(id)?.toEntity()
         }
 
+    override suspend fun getByIds(ids: List<UUID>): List<Playlist> =
+        databaseConfig.dbQuery {
+            if (ids.isEmpty()) {
+                emptyList()
+            } else {
+                ids.mapNotNull { id -> PlaylistDao.findById(id)?.toEntity() }
+            }
+        }
+
     override suspend fun getAll(): List<Playlist> =
         databaseConfig.dbQuery {
             PlaylistDao.all().toList().toEntities()

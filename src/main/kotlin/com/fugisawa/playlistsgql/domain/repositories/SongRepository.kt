@@ -7,6 +7,8 @@ import java.util.UUID
 interface SongRepository {
     suspend fun getById(id: UUID): Song?
 
+    suspend fun getByIds(ids: List<UUID>): List<Song>
+
     suspend fun getAll(): List<Song>
 
     suspend fun findByTitle(title: String): List<Song>

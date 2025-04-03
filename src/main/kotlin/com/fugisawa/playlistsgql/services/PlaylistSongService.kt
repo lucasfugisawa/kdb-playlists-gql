@@ -12,6 +12,8 @@ class PlaylistSongService(
 ) {
     suspend fun getById(id: UUID): PlaylistSong? = playlistSongRepository.getById(id)
 
+    suspend fun getByIds(ids: List<UUID>): List<PlaylistSong> = playlistSongRepository.getByIds(ids)
+
     suspend fun getAll(): List<PlaylistSong> = playlistSongRepository.getAll()
 
     suspend fun findByPlaylist(playlist: Playlist): List<PlaylistSong> = playlistSongRepository.findByPlaylist(playlist)

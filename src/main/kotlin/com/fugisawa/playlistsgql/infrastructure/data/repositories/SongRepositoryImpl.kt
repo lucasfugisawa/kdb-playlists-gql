@@ -19,6 +19,15 @@ class SongRepositoryImpl(
             SongDao.findById(id)?.toEntity()
         }
 
+    override suspend fun getByIds(ids: List<UUID>): List<Song> =
+        databaseConfig.dbQuery {
+            if (ids.isEmpty()) {
+                emptyList()
+            } else {
+                ids.mapNotNull { id -> SongDao.findById(id)?.toEntity() }
+            }
+        }
+
     override suspend fun getAll(): List<Song> =
         databaseConfig.dbQuery {
             SongDao.all().toList().toEntities()

@@ -25,7 +25,7 @@ class VoteDataLoader(
                         ?: CoroutineScope(EmptyCoroutineContext)
 
                 coroutineScope.future {
-                    val votes = voteService.getAll()
+                    val votes = voteService.getByIds(ids)
                     val voteMap = votes.associateBy { it.id }
                     ids.map { voteMap[it] }
                 }

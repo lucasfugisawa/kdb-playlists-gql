@@ -18,6 +18,15 @@ class UserRepositoryImpl(
             UserDao.findById(id)?.toEntity()
         }
 
+    override suspend fun getByIds(ids: List<UUID>): List<User> =
+        databaseConfig.dbQuery {
+            if (ids.isEmpty()) {
+                emptyList()
+            } else {
+                ids.mapNotNull { id -> UserDao.findById(id)?.toEntity() }
+            }
+        }
+
     override suspend fun getAll(): List<User> =
         databaseConfig.dbQuery {
             UserDao.all().toList().toEntities()

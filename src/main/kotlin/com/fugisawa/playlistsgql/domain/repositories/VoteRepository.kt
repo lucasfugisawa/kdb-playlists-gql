@@ -9,6 +9,8 @@ import java.util.UUID
 interface VoteRepository {
     suspend fun getById(id: UUID): Vote?
 
+    suspend fun getByIds(ids: List<UUID>): List<Vote>
+
     suspend fun getAll(): List<Vote>
 
     suspend fun findByPlaylistSong(playlistSong: PlaylistSong): List<Vote>

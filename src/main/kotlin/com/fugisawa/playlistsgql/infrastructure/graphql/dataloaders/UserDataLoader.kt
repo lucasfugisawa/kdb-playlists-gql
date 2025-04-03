@@ -25,7 +25,7 @@ class UserDataLoader(
                         ?: CoroutineScope(EmptyCoroutineContext)
 
                 coroutineScope.future {
-                    val users = userService.getAll()
+                    val users = userService.getByIds(ids)
                     val userMap = users.associateBy { it.id }
                     ids.map { userMap[it] }
                 }

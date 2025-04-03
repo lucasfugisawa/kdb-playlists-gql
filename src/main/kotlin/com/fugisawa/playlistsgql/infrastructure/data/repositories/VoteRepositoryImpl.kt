@@ -22,6 +22,15 @@ class VoteRepositoryImpl(
             VoteDao.findById(id)?.toEntity()
         }
 
+    override suspend fun getByIds(ids: List<UUID>): List<Vote> =
+        databaseConfig.dbQuery {
+            if (ids.isEmpty()) {
+                emptyList()
+            } else {
+                ids.mapNotNull { id -> VoteDao.findById(id)?.toEntity() }
+            }
+        }
+
     override suspend fun getAll(): List<Vote> =
         databaseConfig.dbQuery {
             VoteDao.all().toList().toEntities()

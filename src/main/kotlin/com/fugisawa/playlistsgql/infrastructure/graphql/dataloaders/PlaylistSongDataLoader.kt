@@ -25,7 +25,7 @@ class PlaylistSongDataLoader(
                         ?: CoroutineScope(EmptyCoroutineContext)
 
                 coroutineScope.future {
-                    val playlistSongs = playlistSongService.getAll()
+                    val playlistSongs = playlistSongService.getByIds(ids)
                     val playlistSongMap = playlistSongs.associateBy { it.id }
                     ids.map { playlistSongMap[it] }
                 }

@@ -9,6 +9,8 @@ class UserService(
 ) {
     suspend fun getById(id: UUID): User? = userRepository.getById(id)
 
+    suspend fun getByIds(ids: List<UUID>): List<User> = userRepository.getByIds(ids)
+
     suspend fun getAll(): List<User> = userRepository.getAll()
 
     suspend fun findByUsername(username: String): User? = userRepository.findByUsername(username)

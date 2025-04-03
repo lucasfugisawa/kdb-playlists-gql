@@ -12,6 +12,8 @@ class VoteService(
 ) {
     suspend fun getById(id: UUID): Vote? = voteRepository.getById(id)
 
+    suspend fun getByIds(ids: List<UUID>): List<Vote> = voteRepository.getByIds(ids)
+
     suspend fun getAll(): List<Vote> = voteRepository.getAll()
 
     suspend fun findByPlaylistSong(playlistSong: PlaylistSong): List<Vote> = voteRepository.findByPlaylistSong(playlistSong)

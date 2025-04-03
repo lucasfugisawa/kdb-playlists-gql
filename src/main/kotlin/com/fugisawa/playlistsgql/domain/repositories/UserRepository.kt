@@ -6,6 +6,8 @@ import java.util.UUID
 interface UserRepository {
     suspend fun getById(id: UUID): User?
 
+    suspend fun getByIds(ids: List<UUID>): List<User>
+
     suspend fun getAll(): List<User>
 
     suspend fun findByUsername(username: String): User?

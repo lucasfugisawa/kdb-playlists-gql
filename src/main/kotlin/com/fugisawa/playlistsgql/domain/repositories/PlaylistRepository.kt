@@ -7,6 +7,8 @@ import java.util.UUID
 interface PlaylistRepository {
     suspend fun getById(id: UUID): Playlist?
 
+    suspend fun getByIds(ids: List<UUID>): List<Playlist>
+
     suspend fun getAll(): List<Playlist>
 
     suspend fun findByTitle(title: String): List<Playlist>
