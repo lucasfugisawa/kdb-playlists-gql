@@ -5,15 +5,11 @@ import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.domain.services.UserService
-import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistSongFilter
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class PlaylistSongQueryService(
     private val playlistSongService: PlaylistSongService,
-    private val playlistService: PlaylistService,
-    private val songService: SongService,
-    private val userService: UserService,
 ) : Query {
     suspend fun playlistSong(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong? =
         playlistSongService.getById(id)?.toSchemaType()
@@ -40,3 +36,11 @@ class PlaylistSongQueryService(
             .map { it.toSchemaType() }
     }
 }
+
+data class PlaylistSongFilter(
+    val ids: List<UUID>? = null,
+    val playlistId: UUID? = null,
+    val songId: UUID? = null,
+    val addedById: UUID? = null,
+    val position: Int? = null,
+)

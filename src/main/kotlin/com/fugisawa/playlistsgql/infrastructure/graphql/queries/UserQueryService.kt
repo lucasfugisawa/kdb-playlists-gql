@@ -2,7 +2,6 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
 import com.fugisawa.playlistsgql.domain.services.UserService
-import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.UserFilter
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
@@ -31,3 +30,9 @@ class UserQueryService(
             .map { it.toSchemaType() }
     }
 }
+
+data class UserFilter(
+    val ids: List<UUID>? = null,
+    val username: String? = null,
+    val email: String? = null,
+)

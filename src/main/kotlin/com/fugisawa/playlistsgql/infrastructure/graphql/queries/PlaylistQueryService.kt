@@ -3,13 +3,12 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 import com.expediagroup.graphql.server.operations.Query
 import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.domain.services.UserService
-import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistFilter
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
+import java.time.Instant
 
 class PlaylistQueryService(
     private val playlistService: PlaylistService,
-    private val userService: UserService,
 ) : Query {
     suspend fun playlist(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist? =
         playlistService.getById(id)?.toSchemaType()
@@ -37,3 +36,12 @@ class PlaylistQueryService(
             .map { it.toSchemaType() }
     }
 }
+
+data class PlaylistFilter(
+    val ids: List<UUID>? = null,
+    val creatorId: UUID? = null,
+    val tag: String? = null,
+    val title: String? = null,
+    val createdBefore: Instant? = null,
+    val createdAfter: Instant? = null,
+)

@@ -4,10 +4,11 @@ import com.expediagroup.graphql.server.operations.Query
 import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.domain.services.VoteService
-import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.VoteFilter
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.VoteGQL
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
+import com.fugisawa.playlistsgql.data.models.enums.VoteType
+import java.time.Instant
 
 class VoteQueryService(
     private val voteService: VoteService,
@@ -39,3 +40,12 @@ class VoteQueryService(
             .map { it.toSchemaType() }
     }
 }
+
+data class VoteFilter(
+    val ids: List<UUID>? = null,
+    val userId: UUID? = null,
+    val playlistSongId: UUID? = null,
+    val type: VoteType? = null,
+    val createdBefore: Instant? = null,
+    val createdAfter: Instant? = null,
+)

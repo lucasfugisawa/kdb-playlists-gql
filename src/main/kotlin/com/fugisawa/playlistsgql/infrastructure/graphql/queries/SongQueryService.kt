@@ -2,9 +2,9 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
 import com.fugisawa.playlistsgql.domain.services.SongService
-import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.SongFilter
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
+import com.fugisawa.playlistsgql.data.models.enums.Genre
 
 class SongQueryService(
     private val songService: SongService,
@@ -32,3 +32,10 @@ class SongQueryService(
             .map { it.toSchemaType() }
     }
 }
+
+data class SongFilter(
+    val ids: List<UUID>? = null,
+    val title: String? = null,
+    val artist: String? = null,
+    val genre: Genre? = null,
+)
