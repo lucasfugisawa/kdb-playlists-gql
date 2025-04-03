@@ -6,10 +6,6 @@ A complete Kotlin + Ktor + GraphQL project using graphql-kotlin that serves as a
 
 - **Kotlin & Ktor**: Modern, concise, and safe programming with Kotlin and Ktor web framework
 - **GraphQL API**: Complete GraphQL implementation using graphql-kotlin
-  - Queries: Fetch data from the server
-  - Mutations: Modify data on the server
-  - Subscriptions: Real-time updates via WebSockets
-  - Custom scalars: UUID support
 - **PostgreSQL Database**: Persistent storage with PostgreSQL
 - **Exposed ORM**: Type-safe SQL framework for Kotlin
 - **Flyway Migrations**: Database versioning and migrations
@@ -19,7 +15,7 @@ A complete Kotlin + Ktor + GraphQL project using graphql-kotlin that serves as a
 
 ## Domain Overview & Core Entities
 
-This project implements a music playlist management system with the following core entities:
+This project implements a minimalist music playlist management system with the following core entities:
 
 ### User
 - Simple user model with ID and username
@@ -76,43 +72,34 @@ docker-compose down -v
 
 ## Testing, Building & Running
 
-### Testing
+To test, build or run the project, use one of the following tasks:
 
-To run the tests:
+| Task                                    | Description                                                          |
+|-----------------------------------------|----------------------------------------------------------------------|
+| `./gradlew test`                        | Run the tests                                                        |
+| `./gradlew build`                       | Build everything                                                     |
+| `./gradlew buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
+| `./gradlew buildImage`                  | Build the docker image to use with the fat JAR                       |
+| `./gradlew publishImageToLocalRegistry` | Publish the docker image locally                                     |
+| `./gradlew run`                         | Run the server                                                       |
+| `./gradlew runDocker`                   | Run using the local docker image                                     |
 
-```bash
-./gradlew test
-```
-
-### Building & Running
-
-To build or run the project, use one of the following tasks:
-
-| Task                          | Description                                                          |
-|-------------------------------|----------------------------------------------------------------------|
-| `./gradlew test`              | Run the tests                                                        |
-| `./gradlew build`             | Build everything                                                     |
-| `buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `run`                         | Run the server                                                       |
-| `runDocker`                   | Run using the local docker image                                     |
-
-If the server starts successfully, you'll see the following output:
+If the server starts successfully, you'll see something like the following output:
 
 ```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
+[main] INFO  Application - Application started in 0.303 seconds.
+[main] INFO  Application - Responding at http://0.0.0.0:8080
 ```
 
 ## Useful Links
 
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
+- [Kotlin Documentation](https://kotlinlang.org/docs/)
+- [Ktor Documentation](https://ktor.io/docs/)
 - [GraphQL Kotlin Documentation](https://expediagroup.github.io/graphql-kotlin/)
 - [Exposed Documentation](https://github.com/JetBrains/Exposed)
 - [Flyway Documentation](https://flywaydb.org/documentation/)
-- [GraphQL Specification](https://spec.graphql.org/)
+- [Koin Documentation](https://insert-koin.io/docs/reference/introduction/)
+- [PostgreSQL documentation](https://www.postgresql.org/docs/)
 
 ## License
 
@@ -128,4 +115,4 @@ Contributions are welcome! Here's how you can contribute:
 4. Push to the branch: `git push origin feature/my-new-feature`
 5. Submit a pull request
 
-Please make sure your code follows the project's coding style and includes appropriate tests.
+Please make sure your code follows the project's coding design and style, and includes appropriate tests.
