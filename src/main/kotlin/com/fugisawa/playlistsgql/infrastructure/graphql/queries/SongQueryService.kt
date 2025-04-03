@@ -5,17 +5,27 @@ import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 import com.fugisawa.playlistsgql.data.models.enums.Genre
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.Song as SongGQL
+
+data class SongCollection(
+    override val items: List<SongGQL>,
+    override val totalCount: Int,
+    override val pageInfo: PageInfo
+) : GraphQLCollection<SongGQL>
 
 class SongQueryService(
     private val songService: SongService,
 ) : Query {
-    suspend fun song(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.Song? = songService.getById(id)?.toSchemaType()
+    suspend fun song(id: UUID): SongGQL? = songService.getById(id)?.toSchemaType()
 
     suspend fun songs(
         filter: SongFilter? = null,
         limit: Int? = null,
         offset: Int? = null,
-    ): List<com.fugisawa.playlistsgql.infrastructure.graphql.types.Song> {
+    ): SongCollection {
         val allSongs = songService.getAll()
 
         val filteredSongs =
@@ -26,10 +36,19 @@ class SongQueryService(
                     (filter?.genre == null || song.genre == filter.genre)
             }
 
-        return filteredSongs
-            .let { if (offset != null) it.drop(offset) else it }
-            .let { if (limit != null) it.take(limit) else it }
-            .map { it.toSchemaType() }
+        val (items, totalCount, pageInfo) = pagedCollection(
+            allItems = allSongs,
+            filteredItems = filteredSongs,
+            offset = offset,
+            limit = limit,
+            transform = { it.toSchemaType() }
+        )
+
+        return SongCollection(
+            items = items,
+            totalCount = totalCount,
+            pageInfo = pageInfo
+        )
     }
 }
 

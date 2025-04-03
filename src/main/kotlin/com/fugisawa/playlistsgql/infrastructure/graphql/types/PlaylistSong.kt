@@ -5,7 +5,7 @@ import java.util.UUID
 
 data class PlaylistSong(
     val id: UUID,
-    val playlistGQL: Playlist,
+    val playlist: Playlist,
     val song: Song,
     val addedBy: User,
     val position: Int,
@@ -14,7 +14,7 @@ data class PlaylistSong(
 fun PlaylistSong.toSchemaType(): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong =
     PlaylistSong(
         id = id,
-        playlistGQL = playlist.toSchemaType(),
+        playlist = playlist.toSchemaType(),
         song = song.toSchemaType(),
         addedBy = addedBy.toSchemaType(),
         position = position,
@@ -23,7 +23,7 @@ fun PlaylistSong.toSchemaType(): com.fugisawa.playlistsgql.infrastructure.graphq
 fun com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong.toEntity(): PlaylistSong =
     PlaylistSong(
         id = id,
-        playlist = playlistGQL.toEntity(),
+        playlist = playlist.toEntity(),
         song = song.toEntity(),
         addedBy = addedBy.toEntity(),
         position = position,

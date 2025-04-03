@@ -7,18 +7,28 @@ import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong as PlaylistSongGQL
+
+data class PlaylistSongCollection(
+    override val items: List<PlaylistSongGQL>,
+    override val totalCount: Int,
+    override val pageInfo: PageInfo
+) : GraphQLCollection<PlaylistSongGQL>
 
 class PlaylistSongQueryService(
     private val playlistSongService: PlaylistSongService,
 ) : Query {
-    suspend fun playlistSong(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong? =
+    suspend fun playlistSong(id: UUID): PlaylistSongGQL? =
         playlistSongService.getById(id)?.toSchemaType()
 
     suspend fun playlistSongs(
         filter: PlaylistSongFilter? = null,
         limit: Int? = null,
         offset: Int? = null,
-    ): List<com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong> {
+    ): PlaylistSongCollection {
         val allPlaylistSongs = playlistSongService.getAll()
 
         val filteredPlaylistSongs =
@@ -30,10 +40,19 @@ class PlaylistSongQueryService(
                     (filter?.position == null || playlistSong.position == filter.position)
             }
 
-        return filteredPlaylistSongs
-            .let { if (offset != null) it.drop(offset) else it }
-            .let { if (limit != null) it.take(limit) else it }
-            .map { it.toSchemaType() }
+        val (items, totalCount, pageInfo) = pagedCollection(
+            allItems = allPlaylistSongs,
+            filteredItems = filteredPlaylistSongs,
+            offset = offset,
+            limit = limit,
+            transform = { it.toSchemaType() }
+        )
+
+        return PlaylistSongCollection(
+            items = items,
+            totalCount = totalCount,
+            pageInfo = pageInfo
+        )
     }
 }
 

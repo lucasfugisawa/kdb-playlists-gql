@@ -9,6 +9,15 @@ import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 import com.fugisawa.playlistsgql.data.models.enums.VoteType
 import java.time.Instant
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+
+data class VoteCollection(
+    override val items: List<VoteGQL>,
+    override val totalCount: Int,
+    override val pageInfo: PageInfo
+) : GraphQLCollection<VoteGQL>
 
 class VoteQueryService(
     private val voteService: VoteService,
@@ -21,7 +30,7 @@ class VoteQueryService(
         filter: VoteFilter? = null,
         limit: Int? = null,
         offset: Int? = null,
-    ): List<VoteGQL> {
+    ): VoteCollection {
         val allVotes = voteService.getAll()
 
         val filteredVotes =
@@ -34,10 +43,19 @@ class VoteQueryService(
                     (filter?.createdAfter == null || vote.createdAt.isAfter(filter.createdAfter))
             }
 
-        return filteredVotes
-            .let { if (offset != null) it.drop(offset) else it }
-            .let { if (limit != null) it.take(limit) else it }
-            .map { it.toSchemaType() }
+        val (items, totalCount, pageInfo) = pagedCollection(
+            allItems = allVotes,
+            filteredItems = filteredVotes,
+            offset = offset,
+            limit = limit,
+            transform = { it.toSchemaType() }
+        )
+
+        return VoteCollection(
+            items = items,
+            totalCount = totalCount,
+            pageInfo = pageInfo
+        )
     }
 }
 

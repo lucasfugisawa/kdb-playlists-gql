@@ -6,18 +6,28 @@ import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 import java.time.Instant
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist as PlaylistGQL
+
+data class PlaylistCollection(
+    override val items: List<PlaylistGQL>,
+    override val totalCount: Int,
+    override val pageInfo: PageInfo
+) : GraphQLCollection<PlaylistGQL>
 
 class PlaylistQueryService(
     private val playlistService: PlaylistService,
 ) : Query {
-    suspend fun playlist(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist? =
+    suspend fun playlist(id: UUID): PlaylistGQL? =
         playlistService.getById(id)?.toSchemaType()
 
     suspend fun playlists(
         filter: PlaylistFilter? = null,
         limit: Int? = null,
         offset: Int? = null,
-    ): List<com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist> {
+    ): PlaylistCollection {
         val allPlaylists = playlistService.getAll()
 
         val filteredPlaylists =
@@ -30,10 +40,19 @@ class PlaylistQueryService(
                     (filter?.createdAfter == null || playlist.createdAt.isAfter(filter.createdAfter))
             }
 
-        return filteredPlaylists
-            .let { if (offset != null) it.drop(offset) else it }
-            .let { if (limit != null) it.take(limit) else it }
-            .map { it.toSchemaType() }
+        val (items, totalCount, pageInfo) = pagedCollection(
+            allItems = allPlaylists,
+            filteredItems = filteredPlaylists,
+            offset = offset,
+            limit = limit,
+            transform = { it.toSchemaType() }
+        )
+
+        return PlaylistCollection(
+            items = items,
+            totalCount = totalCount,
+            pageInfo = pageInfo
+        )
     }
 }
 
