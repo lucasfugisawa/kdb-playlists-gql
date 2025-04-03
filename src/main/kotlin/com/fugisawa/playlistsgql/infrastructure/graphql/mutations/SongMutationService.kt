@@ -6,7 +6,6 @@ import com.fugisawa.playlistsgql.domain.models.Song
 import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.SongCreateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.SongUpdateInput
-
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 

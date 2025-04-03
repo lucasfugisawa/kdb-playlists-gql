@@ -17,10 +17,10 @@ class CustomGraphQLContextFactory : DefaultKtorGraphQLContextFactory() {
         super.generateContext(request).plus(
             mutableMapOf<Any, Any>(
                 "user" to
-                        User(
-                            id = UUID.randomUUID(),
-                            username = "test",
-                        ),
+                    User(
+                        id = UUID.randomUUID(),
+                        username = "test",
+                    ),
                 CoroutineScope::class to coroutineScope,
             ).also { map ->
                 request.headers["my-custom-header"]?.let { customHeader ->

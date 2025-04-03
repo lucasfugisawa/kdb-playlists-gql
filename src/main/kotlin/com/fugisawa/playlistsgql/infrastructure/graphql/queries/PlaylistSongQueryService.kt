@@ -15,7 +15,8 @@ class PlaylistSongQueryService(
     private val songService: SongService,
     private val userService: UserService,
 ) : Query {
-    suspend fun playlistSong(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong? = playlistSongService.getById(id)?.toSchemaType()
+    suspend fun playlistSong(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong? =
+        playlistSongService.getById(id)?.toSchemaType()
 
     suspend fun playlistSongs(
         filter: PlaylistSongFilter? = null,

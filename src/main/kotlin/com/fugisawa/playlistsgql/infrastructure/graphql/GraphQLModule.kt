@@ -23,7 +23,6 @@ import com.fugisawa.playlistsgql.infrastructure.graphql.queries.PlaylistSongQuer
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.SongQueryService
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.UserQueryService
 import com.fugisawa.playlistsgql.infrastructure.graphql.queries.VoteQueryService
-import com.fugisawa.playlistsgql.infrastructure.graphql.subscriptions.ExampleSubscriptionService
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.serialization.jackson.JacksonWebsocketContentConverter
