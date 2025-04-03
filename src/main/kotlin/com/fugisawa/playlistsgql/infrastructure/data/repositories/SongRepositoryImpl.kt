@@ -5,7 +5,7 @@ import com.fugisawa.playlistsgql.data.mappers.toDao
 import com.fugisawa.playlistsgql.data.mappers.toEntities
 import com.fugisawa.playlistsgql.data.mappers.toEntity
 import com.fugisawa.playlistsgql.data.models.enums.Genre
-import com.fugisawa.playlistsgql.domain.models.Song
+import com.fugisawa.playlistsgql.domain.entities.Song
 import com.fugisawa.playlistsgql.domain.repositories.SongRepository
 import com.fugisawa.playlistsgql.infrastructure.data.dao.SongDao
 import com.fugisawa.playlistsgql.infrastructure.data.dao.SongTable

@@ -5,9 +5,9 @@ import com.fugisawa.playlistsgql.data.mappers.toDao
 import com.fugisawa.playlistsgql.data.mappers.toEntities
 import com.fugisawa.playlistsgql.data.mappers.toEntity
 import com.fugisawa.playlistsgql.data.models.enums.VoteType
-import com.fugisawa.playlistsgql.domain.models.PlaylistSong
-import com.fugisawa.playlistsgql.domain.models.User
-import com.fugisawa.playlistsgql.domain.models.Vote
+import com.fugisawa.playlistsgql.domain.entities.PlaylistSong
+import com.fugisawa.playlistsgql.domain.entities.User
+import com.fugisawa.playlistsgql.domain.entities.Vote
 import com.fugisawa.playlistsgql.domain.repositories.VoteRepository
 import com.fugisawa.playlistsgql.infrastructure.data.dao.VoteDao
 import com.fugisawa.playlistsgql.infrastructure.data.dao.VoteTable

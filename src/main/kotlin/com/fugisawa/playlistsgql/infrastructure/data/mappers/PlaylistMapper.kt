@@ -1,6 +1,6 @@
 package com.fugisawa.playlistsgql.data.mappers
 
-import com.fugisawa.playlistsgql.domain.models.Playlist
+import com.fugisawa.playlistsgql.domain.entities.Playlist
 import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistDao
 
 fun PlaylistDao.toEntity(): Playlist =

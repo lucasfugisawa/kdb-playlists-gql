@@ -2,7 +2,7 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.mutations
 
 import com.expediagroup.graphql.generator.execution.OptionalInput
 import com.expediagroup.graphql.server.operations.Mutation
-import com.fugisawa.playlistsgql.domain.models.PlaylistSong
+import com.fugisawa.playlistsgql.domain.entities.PlaylistSong
 import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.SongService

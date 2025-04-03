@@ -1,7 +1,7 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders
 
 import com.expediagroup.graphql.dataloader.KotlinDataLoader
-import com.fugisawa.playlistsgql.domain.models.User
+import com.fugisawa.playlistsgql.domain.entities.User
 import com.fugisawa.playlistsgql.domain.services.UserService
 import graphql.GraphQLContext
 import kotlinx.coroutines.CoroutineScope

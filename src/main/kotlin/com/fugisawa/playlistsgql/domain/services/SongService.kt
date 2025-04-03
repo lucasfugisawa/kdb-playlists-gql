@@ -1,7 +1,7 @@
 package com.fugisawa.playlistsgql.domain.services
 
 import com.fugisawa.playlistsgql.data.models.enums.Genre
-import com.fugisawa.playlistsgql.domain.models.Song
+import com.fugisawa.playlistsgql.domain.entities.Song
 import com.fugisawa.playlistsgql.domain.repositories.SongRepository
 import java.util.UUID
 

@@ -1,9 +1,9 @@
 package com.fugisawa.playlistsgql.domain.repositories
 
-import com.fugisawa.playlistsgql.domain.models.Playlist
-import com.fugisawa.playlistsgql.domain.models.PlaylistSong
-import com.fugisawa.playlistsgql.domain.models.Song
-import com.fugisawa.playlistsgql.domain.models.User
+import com.fugisawa.playlistsgql.domain.entities.Playlist
+import com.fugisawa.playlistsgql.domain.entities.PlaylistSong
+import com.fugisawa.playlistsgql.domain.entities.Song
+import com.fugisawa.playlistsgql.domain.entities.User
 import java.util.UUID
 
 interface PlaylistSongRepository {

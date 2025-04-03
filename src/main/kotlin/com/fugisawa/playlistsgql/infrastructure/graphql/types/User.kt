@@ -1,6 +1,6 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.types
 
-import com.fugisawa.playlistsgql.domain.models.User
+import com.fugisawa.playlistsgql.domain.entities.User
 import java.util.UUID
 
 data class User(

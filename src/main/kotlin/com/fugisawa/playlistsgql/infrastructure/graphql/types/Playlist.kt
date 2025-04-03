@@ -1,6 +1,6 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.types
 
-import com.fugisawa.playlistsgql.domain.models.Playlist
+import com.fugisawa.playlistsgql.domain.entities.Playlist
 import java.time.Instant
 import java.util.*
 

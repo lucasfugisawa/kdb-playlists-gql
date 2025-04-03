@@ -2,7 +2,7 @@ package com.fugisawa.playlistsgql.infrastructure.graphql
 
 import com.expediagroup.graphql.generator.extensions.plus
 import com.expediagroup.graphql.server.ktor.DefaultKtorGraphQLContextFactory
-import com.fugisawa.playlistsgql.domain.models.User
+import com.fugisawa.playlistsgql.domain.entities.User
 import graphql.GraphQLContext
 import io.ktor.server.request.ApplicationRequest
 import kotlinx.coroutines.CoroutineScope

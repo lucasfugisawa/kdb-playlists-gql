@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.domain.models
+package com.fugisawa.playlistsgql.domain.entities
 
 import com.fugisawa.playlistsgql.data.models.enums.Genre
 import java.util.UUID
