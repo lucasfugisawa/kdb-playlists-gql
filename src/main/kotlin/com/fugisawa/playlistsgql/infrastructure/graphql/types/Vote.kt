@@ -1,7 +1,7 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.types
 
-import com.fugisawa.playlistsgql.data.models.enums.VoteType
 import com.fugisawa.playlistsgql.domain.entities.Vote
+import com.fugisawa.playlistsgql.domain.entities.VoteType
 import java.time.Instant
 import java.util.UUID
 

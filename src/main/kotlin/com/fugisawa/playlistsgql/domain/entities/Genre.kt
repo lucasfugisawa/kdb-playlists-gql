@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.data.models.enums
+package com.fugisawa.playlistsgql.domain.entities
 
 enum class Genre {
     ROCK,

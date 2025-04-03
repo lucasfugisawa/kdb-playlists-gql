@@ -1,15 +1,15 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
-import com.fugisawa.playlistsgql.data.models.enums.VoteType
-import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
-import com.fugisawa.playlistsgql.domain.services.UserService
-import com.fugisawa.playlistsgql.domain.services.VoteService
+import com.fugisawa.playlistsgql.domain.entities.VoteType
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.VoteGQL
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import com.fugisawa.playlistsgql.services.PlaylistSongService
+import com.fugisawa.playlistsgql.services.UserService
+import com.fugisawa.playlistsgql.services.VoteService
 import java.time.Instant
 import java.util.UUID
 

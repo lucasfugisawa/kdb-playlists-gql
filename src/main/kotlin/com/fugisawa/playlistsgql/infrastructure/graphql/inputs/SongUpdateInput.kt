@@ -1,7 +1,7 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.inputs
 
 import com.expediagroup.graphql.generator.execution.OptionalInput
-import com.fugisawa.playlistsgql.data.models.enums.Genre
+import com.fugisawa.playlistsgql.domain.entities.Genre
 
 data class SongUpdateInput(
     val title: OptionalInput<String> = OptionalInput.Undefined,

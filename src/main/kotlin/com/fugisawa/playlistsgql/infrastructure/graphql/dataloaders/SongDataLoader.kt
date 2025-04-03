@@ -2,7 +2,7 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.dataloaders
 
 import com.expediagroup.graphql.dataloader.KotlinDataLoader
 import com.fugisawa.playlistsgql.domain.entities.Song
-import com.fugisawa.playlistsgql.domain.services.SongService
+import com.fugisawa.playlistsgql.services.SongService
 import graphql.GraphQLContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.future.future

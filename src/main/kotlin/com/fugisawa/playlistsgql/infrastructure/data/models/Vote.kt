@@ -1,6 +1,6 @@
-package com.fugisawa.playlistsgql.data.models.entities
+package com.fugisawa.playlistsgql.infrastructure.data.models
 
-import com.fugisawa.playlistsgql.data.models.enums.VoteType
+import com.fugisawa.playlistsgql.domain.entities.VoteType
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

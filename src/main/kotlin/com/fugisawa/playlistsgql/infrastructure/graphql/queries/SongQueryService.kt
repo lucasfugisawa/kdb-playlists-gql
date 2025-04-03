@@ -1,12 +1,12 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
-import com.fugisawa.playlistsgql.data.models.enums.Genre
-import com.fugisawa.playlistsgql.domain.services.SongService
+import com.fugisawa.playlistsgql.domain.entities.Genre
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import com.fugisawa.playlistsgql.services.SongService
 import java.util.UUID
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.Song as SongGQL
 

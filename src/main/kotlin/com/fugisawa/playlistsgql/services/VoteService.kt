@@ -1,9 +1,9 @@
-package com.fugisawa.playlistsgql.domain.services
+package com.fugisawa.playlistsgql.services
 
-import com.fugisawa.playlistsgql.data.models.enums.VoteType
 import com.fugisawa.playlistsgql.domain.entities.PlaylistSong
 import com.fugisawa.playlistsgql.domain.entities.User
 import com.fugisawa.playlistsgql.domain.entities.Vote
+import com.fugisawa.playlistsgql.domain.entities.VoteType
 import com.fugisawa.playlistsgql.domain.repositories.VoteRepository
 import java.util.UUID
 

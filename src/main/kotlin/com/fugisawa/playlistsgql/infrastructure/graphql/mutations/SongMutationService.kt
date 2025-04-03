@@ -3,10 +3,10 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.mutations
 import com.expediagroup.graphql.generator.execution.OptionalInput
 import com.expediagroup.graphql.server.operations.Mutation
 import com.fugisawa.playlistsgql.domain.entities.Song
-import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.SongCreateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.SongUpdateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import com.fugisawa.playlistsgql.services.SongService
 import java.util.UUID
 
 class SongMutationService(

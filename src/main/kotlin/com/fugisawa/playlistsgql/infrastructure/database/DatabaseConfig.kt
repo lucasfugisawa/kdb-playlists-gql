@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.infrastructure.config.database
+package com.fugisawa.playlistsgql.infrastructure.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -11,7 +11,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import javax.sql.DataSource
 
-object DatabaseFactory {
+class DatabaseConfig {
     private lateinit var dataSource: DataSource
 
     fun init(config: ApplicationConfig) {
@@ -64,6 +64,7 @@ object DatabaseFactory {
 
 fun Application.configureDatabases() {
     val databaseConfig = environment.config
-    DatabaseFactory.init(databaseConfig)
+    val dbConfig = DatabaseConfig()
+    dbConfig.init(databaseConfig)
     log.info("Database initialized")
 }

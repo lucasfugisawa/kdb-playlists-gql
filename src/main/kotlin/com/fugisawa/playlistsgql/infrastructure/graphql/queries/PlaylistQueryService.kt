@@ -1,11 +1,11 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
-import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import com.fugisawa.playlistsgql.services.PlaylistService
 import java.time.Instant
 import java.util.UUID
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist as PlaylistGQL

@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.data.models.entities
+package com.fugisawa.playlistsgql.infrastructure.data.models
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -23,7 +23,7 @@ class Playlist(
 
     var title by Playlists.title
     var description by Playlists.description
-    var creator by User referencedOn Playlists.creator
+    var creator by User.Companion referencedOn Playlists.creator
     var createdAt by Playlists.createdAt
     private var tagsString by Playlists.tags
 

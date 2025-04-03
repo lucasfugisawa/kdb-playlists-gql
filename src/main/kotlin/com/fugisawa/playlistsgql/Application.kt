@@ -1,7 +1,7 @@
 package com.fugisawa.playlistsgql
 
-import com.fugisawa.playlistsgql.di.appModules
-import com.fugisawa.playlistsgql.infrastructure.config.database.configureDatabases
+import com.fugisawa.playlistsgql.infrastructure.database.configureDatabases
+import com.fugisawa.playlistsgql.infrastructure.di.appModules
 import com.fugisawa.playlistsgql.infrastructure.graphql.configureGraphQL
 import io.ktor.server.application.Application
 import io.ktor.server.application.install

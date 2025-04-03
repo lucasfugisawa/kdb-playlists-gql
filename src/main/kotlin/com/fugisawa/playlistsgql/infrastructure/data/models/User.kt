@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.data.models.entities
+package com.fugisawa.playlistsgql.infrastructure.data.models
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass

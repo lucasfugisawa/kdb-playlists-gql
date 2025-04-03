@@ -1,9 +1,5 @@
-package com.fugisawa.playlistsgql.data.repositories
+package com.fugisawa.playlistsgql.infrastructure.data.repositories
 
-import com.fugisawa.playlistsgql.config.DatabaseConfig
-import com.fugisawa.playlistsgql.data.mappers.toDao
-import com.fugisawa.playlistsgql.data.mappers.toEntities
-import com.fugisawa.playlistsgql.data.mappers.toEntity
 import com.fugisawa.playlistsgql.domain.entities.Playlist
 import com.fugisawa.playlistsgql.domain.entities.PlaylistSong
 import com.fugisawa.playlistsgql.domain.entities.Song
@@ -11,6 +7,10 @@ import com.fugisawa.playlistsgql.domain.entities.User
 import com.fugisawa.playlistsgql.domain.repositories.PlaylistSongRepository
 import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistSongDao
 import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistSongTable
+import com.fugisawa.playlistsgql.infrastructure.data.mappers.toDao
+import com.fugisawa.playlistsgql.infrastructure.data.mappers.toEntities
+import com.fugisawa.playlistsgql.infrastructure.data.mappers.toEntity
+import com.fugisawa.playlistsgql.infrastructure.database.DatabaseConfig
 import org.jetbrains.exposed.sql.and
 import java.util.UUID
 

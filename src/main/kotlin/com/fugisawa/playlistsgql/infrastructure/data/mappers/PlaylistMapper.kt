@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.data.mappers
+package com.fugisawa.playlistsgql.infrastructure.data.mappers
 
 import com.fugisawa.playlistsgql.domain.entities.Playlist
 import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistDao

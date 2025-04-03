@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.infrastructure.config.database
+package com.fugisawa.playlistsgql.infrastructure.database
 
 import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistSongTable
 import com.fugisawa.playlistsgql.infrastructure.data.dao.PlaylistTable

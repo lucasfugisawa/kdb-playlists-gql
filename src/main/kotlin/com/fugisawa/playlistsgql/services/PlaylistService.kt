@@ -1,4 +1,4 @@
-package com.fugisawa.playlistsgql.domain.services
+package com.fugisawa.playlistsgql.services
 
 import com.fugisawa.playlistsgql.domain.entities.Playlist
 import com.fugisawa.playlistsgql.domain.entities.User
