@@ -5,7 +5,7 @@ import com.expediagroup.graphql.generator.annotations.GraphQLIgnore
 data class PageInfo(
     val offset: Int,
     val limit: Int,
-    val hasNextPage: Boolean
+    val hasNextPage: Boolean,
 )
 
 @GraphQLIgnore
@@ -20,23 +20,25 @@ fun <T, R> pagedCollection(
     filteredItems: List<T>,
     offset: Int? = null,
     limit: Int? = null,
-    transform: (T) -> R
+    transform: (T) -> R,
 ): Triple<List<R>, Int, PageInfo> {
     val effectiveOffset = offset ?: 0
     val effectiveLimit = limit ?: filteredItems.size
 
-    val pagedItems = filteredItems
-        .drop(effectiveOffset)
-        .take(effectiveLimit)
-        .map(transform)
+    val pagedItems =
+        filteredItems
+            .drop(effectiveOffset)
+            .take(effectiveLimit)
+            .map(transform)
 
     val hasNextPage = filteredItems.size > effectiveOffset + effectiveLimit
 
-    val pageInfo = PageInfo(
-        offset = effectiveOffset,
-        limit = effectiveLimit,
-        hasNextPage = hasNextPage
-    )
+    val pageInfo =
+        PageInfo(
+            offset = effectiveOffset,
+            limit = effectiveLimit,
+            hasNextPage = hasNextPage,
+        )
 
     return Triple(pagedItems, filteredItems.size, pageInfo)
 }

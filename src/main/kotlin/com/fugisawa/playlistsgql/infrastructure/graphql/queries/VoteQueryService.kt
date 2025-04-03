@@ -1,22 +1,22 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
+import com.fugisawa.playlistsgql.data.models.enums.VoteType
 import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.domain.services.VoteService
-import com.fugisawa.playlistsgql.infrastructure.graphql.types.VoteGQL
-import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
-import java.util.UUID
-import com.fugisawa.playlistsgql.data.models.enums.VoteType
-import java.time.Instant
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.VoteGQL
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import java.time.Instant
+import java.util.UUID
 
 data class VoteCollection(
     override val items: List<VoteGQL>,
     override val totalCount: Int,
-    override val pageInfo: PageInfo
+    override val pageInfo: PageInfo,
 ) : GraphQLCollection<VoteGQL>
 
 class VoteQueryService(
@@ -43,18 +43,19 @@ class VoteQueryService(
                     (filter?.createdAfter == null || vote.createdAt.isAfter(filter.createdAfter))
             }
 
-        val (items, totalCount, pageInfo) = pagedCollection(
-            allItems = allVotes,
-            filteredItems = filteredVotes,
-            offset = offset,
-            limit = limit,
-            transform = { it.toSchemaType() }
-        )
+        val (items, totalCount, pageInfo) =
+            pagedCollection(
+                allItems = allVotes,
+                filteredItems = filteredVotes,
+                offset = offset,
+                limit = limit,
+                transform = { it.toSchemaType() },
+            )
 
         return VoteCollection(
             items = items,
             totalCount = totalCount,
-            pageInfo = pageInfo
+            pageInfo = pageInfo,
         )
     }
 }

@@ -1,19 +1,19 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
-import com.fugisawa.playlistsgql.domain.services.SongService
-import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
-import java.util.UUID
 import com.fugisawa.playlistsgql.data.models.enums.Genre
+import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import java.util.UUID
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.Song as SongGQL
 
 data class SongCollection(
     override val items: List<SongGQL>,
     override val totalCount: Int,
-    override val pageInfo: PageInfo
+    override val pageInfo: PageInfo,
 ) : GraphQLCollection<SongGQL>
 
 class SongQueryService(
@@ -36,18 +36,19 @@ class SongQueryService(
                     (filter?.genre == null || song.genre == filter.genre)
             }
 
-        val (items, totalCount, pageInfo) = pagedCollection(
-            allItems = allSongs,
-            filteredItems = filteredSongs,
-            offset = offset,
-            limit = limit,
-            transform = { it.toSchemaType() }
-        )
+        val (items, totalCount, pageInfo) =
+            pagedCollection(
+                allItems = allSongs,
+                filteredItems = filteredSongs,
+                offset = offset,
+                limit = limit,
+                transform = { it.toSchemaType() },
+            )
 
         return SongCollection(
             items = items,
             totalCount = totalCount,
-            pageInfo = pageInfo
+            pageInfo = pageInfo,
         )
     }
 }

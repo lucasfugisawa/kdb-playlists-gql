@@ -2,17 +2,17 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
 import com.fugisawa.playlistsgql.domain.services.UserService
-import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
-import java.util.UUID
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import java.util.UUID
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.User as UserGQL
 
 data class UserCollection(
     override val items: List<UserGQL>,
     override val totalCount: Int,
-    override val pageInfo: PageInfo
+    override val pageInfo: PageInfo,
 ) : GraphQLCollection<UserGQL>
 
 class UserQueryService(
@@ -34,18 +34,19 @@ class UserQueryService(
                     true
             }
 
-        val (items, totalCount, pageInfo) = pagedCollection(
-            allItems = allUsers,
-            filteredItems = filteredUsers,
-            offset = offset,
-            limit = limit,
-            transform = { it.toSchemaType() }
-        )
+        val (items, totalCount, pageInfo) =
+            pagedCollection(
+                allItems = allUsers,
+                filteredItems = filteredUsers,
+                offset = offset,
+                limit = limit,
+                transform = { it.toSchemaType() },
+            )
 
         return UserCollection(
             items = items,
             totalCount = totalCount,
-            pageInfo = pageInfo
+            pageInfo = pageInfo,
         )
     }
 }

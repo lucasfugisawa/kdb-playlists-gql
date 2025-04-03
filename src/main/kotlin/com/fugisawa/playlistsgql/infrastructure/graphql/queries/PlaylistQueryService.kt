@@ -2,26 +2,24 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
 import com.fugisawa.playlistsgql.domain.services.PlaylistService
-import com.fugisawa.playlistsgql.domain.services.UserService
-import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
-import java.util.UUID
-import java.time.Instant
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.GraphQLCollection
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.PageInfo
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.pagedCollection
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import java.time.Instant
+import java.util.UUID
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist as PlaylistGQL
 
 data class PlaylistCollection(
     override val items: List<PlaylistGQL>,
     override val totalCount: Int,
-    override val pageInfo: PageInfo
+    override val pageInfo: PageInfo,
 ) : GraphQLCollection<PlaylistGQL>
 
 class PlaylistQueryService(
     private val playlistService: PlaylistService,
 ) : Query {
-    suspend fun playlist(id: UUID): PlaylistGQL? =
-        playlistService.getById(id)?.toSchemaType()
+    suspend fun playlist(id: UUID): PlaylistGQL? = playlistService.getById(id)?.toSchemaType()
 
     suspend fun playlists(
         filter: PlaylistFilter? = null,
@@ -40,18 +38,19 @@ class PlaylistQueryService(
                     (filter?.createdAfter == null || playlist.createdAt.isAfter(filter.createdAfter))
             }
 
-        val (items, totalCount, pageInfo) = pagedCollection(
-            allItems = allPlaylists,
-            filteredItems = filteredPlaylists,
-            offset = offset,
-            limit = limit,
-            transform = { it.toSchemaType() }
-        )
+        val (items, totalCount, pageInfo) =
+            pagedCollection(
+                allItems = allPlaylists,
+                filteredItems = filteredPlaylists,
+                offset = offset,
+                limit = limit,
+                transform = { it.toSchemaType() },
+            )
 
         return PlaylistCollection(
             items = items,
             totalCount = totalCount,
-            pageInfo = pageInfo
+            pageInfo = pageInfo,
         )
     }
 }
