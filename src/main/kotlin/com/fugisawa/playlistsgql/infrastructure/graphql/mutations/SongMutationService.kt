@@ -6,12 +6,14 @@ import com.fugisawa.playlistsgql.domain.models.Song
 import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.SongCreateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.SongUpdateInput
+
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class SongMutationService(
     private val songService: SongService,
 ) : Mutation {
-    suspend fun createSong(input: SongCreateInput): Song {
+    suspend fun createSong(input: SongCreateInput): com.fugisawa.playlistsgql.infrastructure.graphql.types.Song {
         val song =
             Song(
                 title = input.title,
@@ -19,13 +21,14 @@ class SongMutationService(
                 duration = input.duration,
                 genre = input.genre,
             )
-        return songService.create(song)
+        val createdSong = songService.create(song)
+        return createdSong.toSchemaType()
     }
 
     suspend fun updateSong(
         id: UUID,
         input: SongUpdateInput,
-    ): Song? {
+    ): com.fugisawa.playlistsgql.infrastructure.graphql.types.Song? {
         val existingSong = songService.getById(id) ?: return null
         val updatedSong =
             existingSong.copy(
@@ -50,7 +53,8 @@ class SongMutationService(
                         else -> existingSong.genre
                     },
             )
-        return songService.update(updatedSong)
+        val updatedSongResult = songService.update(updatedSong)
+        return updatedSongResult?.toSchemaType()
     }
 
     suspend fun deleteSong(id: UUID): Boolean = songService.delete(id)

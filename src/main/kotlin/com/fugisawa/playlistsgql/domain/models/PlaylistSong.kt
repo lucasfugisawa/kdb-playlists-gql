@@ -1,8 +1,5 @@
 package com.fugisawa.playlistsgql.domain.models
 
-import com.fugisawa.playlistsgql.domain.models.Playlist
-import com.fugisawa.playlistsgql.domain.models.Song
-import com.fugisawa.playlistsgql.domain.models.User
 import java.util.UUID
 
 data class PlaylistSong(

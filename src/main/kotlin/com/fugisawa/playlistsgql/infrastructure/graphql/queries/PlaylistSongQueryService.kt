@@ -1,12 +1,12 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
-import com.fugisawa.playlistsgql.domain.models.PlaylistSong
 import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistSongFilter
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class PlaylistSongQueryService(
@@ -15,13 +15,13 @@ class PlaylistSongQueryService(
     private val songService: SongService,
     private val userService: UserService,
 ) : Query {
-    suspend fun playlistSong(id: UUID): PlaylistSong? = playlistSongService.getById(id)
+    suspend fun playlistSong(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong? = playlistSongService.getById(id)?.toSchemaType()
 
     suspend fun playlistSongs(
         filter: PlaylistSongFilter? = null,
         limit: Int? = null,
         offset: Int? = null,
-    ): List<PlaylistSong> {
+    ): List<com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong> {
         val allPlaylistSongs = playlistSongService.getAll()
 
         val filteredPlaylistSongs =
@@ -36,5 +36,6 @@ class PlaylistSongQueryService(
         return filteredPlaylistSongs
             .let { if (offset != null) it.drop(offset) else it }
             .let { if (limit != null) it.take(limit) else it }
+            .map { it.toSchemaType() }
     }
 }

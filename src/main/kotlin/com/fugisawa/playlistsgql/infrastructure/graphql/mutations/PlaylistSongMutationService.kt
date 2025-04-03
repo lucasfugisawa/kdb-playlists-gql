@@ -9,6 +9,8 @@ import com.fugisawa.playlistsgql.domain.services.SongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistSongCreateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistSongUpdateInput
+
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class PlaylistSongMutationService(
@@ -17,7 +19,7 @@ class PlaylistSongMutationService(
     private val songService: SongService,
     private val userService: UserService,
 ) : Mutation {
-    suspend fun addSongToPlaylist(input: PlaylistSongCreateInput): PlaylistSong? {
+    suspend fun addSongToPlaylist(input: PlaylistSongCreateInput): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong? {
         val playlist = playlistService.getById(input.playlistId) ?: return null
         val song = songService.getById(input.songId) ?: return null
         val addedBy = userService.getById(input.addedById) ?: return null
@@ -30,13 +32,14 @@ class PlaylistSongMutationService(
                 position = input.position,
             )
 
-        return playlistSongService.create(playlistSong)
+        val createdPlaylistSong = playlistSongService.create(playlistSong)
+        return createdPlaylistSong.toSchemaType()
     }
 
     suspend fun updatePlaylistSongPosition(
         id: UUID,
         input: PlaylistSongUpdateInput,
-    ): PlaylistSong? {
+    ): com.fugisawa.playlistsgql.infrastructure.graphql.types.PlaylistSong? {
         val existingPlaylistSong = playlistSongService.getById(id) ?: return null
         val updatedPlaylistSong =
             existingPlaylistSong.copy(
@@ -46,7 +49,8 @@ class PlaylistSongMutationService(
                         else -> existingPlaylistSong.position
                     },
             )
-        return playlistSongService.update(updatedPlaylistSong)
+        val updatedPlaylistSongResult = playlistSongService.update(updatedPlaylistSong)
+        return updatedPlaylistSongResult?.toSchemaType()
     }
 
     suspend fun removeSongFromPlaylist(id: UUID): Boolean = playlistSongService.delete(id)

@@ -1,23 +1,23 @@
 package com.fugisawa.playlistsgql.infrastructure.graphql.queries
 
 import com.expediagroup.graphql.server.operations.Query
-import com.fugisawa.playlistsgql.domain.models.Playlist
 import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistFilter
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class PlaylistQueryService(
     private val playlistService: PlaylistService,
     private val userService: UserService,
 ) : Query {
-    suspend fun playlist(id: UUID): Playlist? = playlistService.getById(id)
+    suspend fun playlist(id: UUID): com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist? = playlistService.getById(id)?.toSchemaType()
 
     suspend fun playlists(
         filter: PlaylistFilter? = null,
         limit: Int? = null,
         offset: Int? = null,
-    ): List<Playlist> {
+    ): List<com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist> {
         val allPlaylists = playlistService.getAll()
 
         val filteredPlaylists =
@@ -33,5 +33,6 @@ class PlaylistQueryService(
         return filteredPlaylists
             .let { if (offset != null) it.drop(offset) else it }
             .let { if (limit != null) it.take(limit) else it }
+            .map { it.toSchemaType() }
     }
 }

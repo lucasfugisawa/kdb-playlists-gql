@@ -7,13 +7,14 @@ import com.fugisawa.playlistsgql.domain.services.PlaylistService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistCreateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.PlaylistUpdateInput
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class PlaylistMutationService(
     private val playlistService: PlaylistService,
     private val userService: UserService,
 ) : Mutation {
-    suspend fun createPlaylist(input: PlaylistCreateInput): Playlist? {
+    suspend fun createPlaylist(input: PlaylistCreateInput): com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist? {
         val creator = userService.getById(input.creatorId) ?: return null
         val playlist =
             Playlist(
@@ -22,13 +23,14 @@ class PlaylistMutationService(
                 creator = creator,
                 tags = input.tags ?: emptyList(),
             )
-        return playlistService.create(playlist)
+        val createdPlaylist = playlistService.create(playlist)
+        return createdPlaylist.toSchemaType()
     }
 
     suspend fun updatePlaylist(
         id: UUID,
         input: PlaylistUpdateInput,
-    ): Playlist? {
+    ): com.fugisawa.playlistsgql.infrastructure.graphql.types.Playlist? {
         val existingPlaylist = playlistService.getById(id) ?: return null
         val updatedPlaylist =
             existingPlaylist.copy(
@@ -48,7 +50,8 @@ class PlaylistMutationService(
                         else -> existingPlaylist.tags
                     },
             )
-        return playlistService.update(updatedPlaylist)
+        val updatedPlaylistResult = playlistService.update(updatedPlaylist)
+        return updatedPlaylistResult?.toSchemaType()
     }
 
     suspend fun deletePlaylist(id: UUID): Boolean = playlistService.delete(id)

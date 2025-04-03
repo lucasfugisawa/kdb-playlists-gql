@@ -1,6 +1,5 @@
 package com.fugisawa.playlistsgql.domain.models
 
-import com.fugisawa.playlistsgql.domain.models.User
 import java.time.Instant
 import java.util.UUID
 

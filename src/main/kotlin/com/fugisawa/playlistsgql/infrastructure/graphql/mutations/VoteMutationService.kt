@@ -8,6 +8,8 @@ import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.domain.services.VoteService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.VoteCreateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.VoteUpdateInput
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.VoteGQL
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class VoteMutationService(
@@ -15,17 +17,18 @@ class VoteMutationService(
     private val playlistSongService: PlaylistSongService,
     private val userService: UserService,
 ) : Mutation {
-    suspend fun createVote(input: VoteCreateInput): Vote? {
+    suspend fun createVote(input: VoteCreateInput): VoteGQL? {
         val playlistSong = playlistSongService.getById(input.playlistSongId) ?: return null
         val user = userService.getById(input.userId) ?: return null
 
         val existingVote = voteService.findByPlaylistSongAndUser(playlistSong, user)
         if (existingVote != null) {
             if (existingVote.type == input.type) {
-                return existingVote
+                return existingVote.toSchemaType()
             }
             val updatedVote = existingVote.copy(type = input.type)
-            return voteService.update(updatedVote)
+            val updatedVoteResult = voteService.update(updatedVote)
+            return updatedVoteResult?.toSchemaType()
         }
 
         val vote =
@@ -35,13 +38,14 @@ class VoteMutationService(
                 type = input.type,
             )
 
-        return voteService.create(vote)
+        val createdVote = voteService.create(vote)
+        return createdVote.toSchemaType()
     }
 
     suspend fun updateVote(
         id: UUID,
         input: VoteUpdateInput,
-    ): Vote? {
+    ): VoteGQL? {
         val existingVote = voteService.getById(id) ?: return null
         val updatedVote =
             existingVote.copy(
@@ -51,7 +55,8 @@ class VoteMutationService(
                         else -> existingVote.type
                     },
             )
-        return voteService.update(updatedVote)
+        val updatedVoteResult = voteService.update(updatedVote)
+        return updatedVoteResult?.toSchemaType()
     }
 
     suspend fun deleteVote(id: UUID): Boolean = voteService.delete(id)

@@ -6,6 +6,8 @@ import com.fugisawa.playlistsgql.domain.services.PlaylistSongService
 import com.fugisawa.playlistsgql.domain.services.UserService
 import com.fugisawa.playlistsgql.domain.services.VoteService
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.VoteFilter
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.VoteGQL
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
 import java.util.UUID
 
 class VoteQueryService(
@@ -13,13 +15,13 @@ class VoteQueryService(
     private val playlistSongService: PlaylistSongService,
     private val userService: UserService,
 ) : Query {
-    suspend fun vote(id: UUID): Vote? = voteService.getById(id)
+    suspend fun vote(id: UUID): VoteGQL? = voteService.getById(id)?.toSchemaType()
 
     suspend fun votes(
         filter: VoteFilter? = null,
         limit: Int? = null,
         offset: Int? = null,
-    ): List<Vote> {
+    ): List<VoteGQL> {
         val allVotes = voteService.getAll()
 
         val filteredVotes =
@@ -35,5 +37,6 @@ class VoteQueryService(
         return filteredVotes
             .let { if (offset != null) it.drop(offset) else it }
             .let { if (limit != null) it.take(limit) else it }
+            .map { it.toSchemaType() }
     }
 }
