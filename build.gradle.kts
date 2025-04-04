@@ -6,6 +6,7 @@ val postgres_version: String = "42.7.5"
 val hikaricp_version: String = "6.3.0"
 val graphql_kotlin_version: String = "8.4.0"
 val koin_version: String = "4.0.3"
+val jbcrypt_version: String = "0.4"
 
 plugins {
     kotlin("jvm") version "2.1.20"
@@ -63,6 +64,7 @@ dependencies {
     implementation("org.flywaydb:flyway-database-postgresql:$flyway_version")
 
     implementation("com.expediagroup:graphql-kotlin-ktor-server:$graphql_kotlin_version")
+    implementation("org.mindrot:jbcrypt:$jbcrypt_version")
 
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")

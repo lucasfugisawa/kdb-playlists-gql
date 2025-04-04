@@ -19,15 +19,18 @@ class UserDao(
         fun create(
             id: UUID,
             username: String,
+            passwordHash: String? = null,
             roles: Set<UserRole> = setOf(UserRole.USER),
         ): UserDao =
             new(id) {
                 this.username = username
+                this.passwordHash = passwordHash
                 this.roles = roles
             }
     }
 
     var username by UserTable.username
+    var passwordHash: String? = null
     private var rolesString: String = "USER"
         get() = field
         set(value) {

@@ -4,4 +4,5 @@ import com.expediagroup.graphql.generator.execution.OptionalInput
 
 data class UserUpdateInput(
     val username: OptionalInput<String> = OptionalInput.Undefined,
+    val password: OptionalInput<String> = OptionalInput.Undefined,
 )

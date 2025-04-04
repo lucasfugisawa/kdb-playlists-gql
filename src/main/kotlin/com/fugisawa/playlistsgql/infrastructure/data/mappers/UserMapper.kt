@@ -7,9 +7,10 @@ fun UserDao.toEntity(): User =
     User(
         id = this.id.value,
         username = this.username,
+        passwordHash = this.passwordHash,
         roles = this.roles,
     )
 
-fun User.toDao(): UserDao = UserDao.create(this.id, this.username, this.roles)
+fun User.toDao(): UserDao = UserDao.create(this.id, this.username, this.passwordHash, this.roles)
 
 fun List<UserDao>.toEntities(): List<User> = this.map { it.toEntity() }
