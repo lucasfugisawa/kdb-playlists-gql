@@ -10,6 +10,8 @@ import java.util.UUID
 
 object UserTable : UUIDTable("users") {
     val username: Column<String> = varchar("username", 255).uniqueIndex()
+    val passwordHash: Column<String?> = varchar("password_hash", 255).nullable()
+    val roles: Column<String> = varchar("roles", 255).default("USER")
 }
 
 class UserDao(
@@ -30,12 +32,8 @@ class UserDao(
     }
 
     var username by UserTable.username
-    var passwordHash: String? = null
-    private var rolesString: String = "USER"
-        get() = field
-        set(value) {
-            field = value
-        }
+    var passwordHash by UserTable.passwordHash
+    private var rolesString by UserTable.roles
 
     var roles: Set<UserRole>
         get() =
