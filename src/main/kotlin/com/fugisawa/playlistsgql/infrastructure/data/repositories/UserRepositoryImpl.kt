@@ -47,6 +47,7 @@ class UserRepositoryImpl(
         databaseConfig.dbQuery {
             val dao = UserDao.findById(user.id) ?: throw IllegalArgumentException("User not found")
             dao.username = user.username
+            dao.roles = user.roles
             dao.toEntity()
         }
 
