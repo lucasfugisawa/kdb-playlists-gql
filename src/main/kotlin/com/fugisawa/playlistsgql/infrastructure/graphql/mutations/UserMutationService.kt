@@ -2,9 +2,12 @@ package com.fugisawa.playlistsgql.infrastructure.graphql.mutations
 
 import com.expediagroup.graphql.generator.execution.OptionalInput
 import com.expediagroup.graphql.server.operations.Mutation
+import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.LoginInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.UserCreateInput
 import com.fugisawa.playlistsgql.infrastructure.graphql.inputs.UserUpdateInput
+import com.fugisawa.playlistsgql.infrastructure.graphql.types.LoginResponse
 import com.fugisawa.playlistsgql.infrastructure.graphql.types.toSchemaType
+import com.fugisawa.playlistsgql.infrastructure.security.JwtConfig
 import com.fugisawa.playlistsgql.services.UserService
 import java.util.*
 
@@ -44,4 +47,15 @@ class UserMutationService(
     }
 
     suspend fun deleteUser(id: UUID): Boolean = userService.delete(id)
+
+    suspend fun login(input: LoginInput): LoginResponse? {
+        val user = userService.findByUsername(input.username) ?: return null
+
+        if (user.passwordHash == null || !userService.verifyPassword(input.password, user.passwordHash)) {
+            return null
+        }
+
+        val token = JwtConfig.generateToken(user)
+        return LoginResponse(token, user.toSchemaType())
+    }
 }

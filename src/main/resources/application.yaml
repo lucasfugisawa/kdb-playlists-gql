@@ -10,3 +10,10 @@ database:
   url: "jdbc:postgresql://localhost:5432/kdb_playlists"
   user: "postgres"
   password: "postgres"
+
+jwt:
+  secret: "your-secret-key-should-be-at-least-32-characters"
+  issuer: "kdb-playlists-gql"
+  audience: "kdb-playlists-users"
+  realm: "kdb-playlists"
+  expiration: 3600000

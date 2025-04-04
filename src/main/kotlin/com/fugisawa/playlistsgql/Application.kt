@@ -3,6 +3,7 @@ package com.fugisawa.playlistsgql
 import com.fugisawa.playlistsgql.infrastructure.database.configureDatabases
 import com.fugisawa.playlistsgql.infrastructure.di.appModules
 import com.fugisawa.playlistsgql.infrastructure.graphql.configureGraphQL
+import com.fugisawa.playlistsgql.infrastructure.security.JwtConfig
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import org.koin.ktor.plugin.Koin
@@ -18,6 +19,8 @@ fun Application.module() {
         slf4jLogger()
         modules(appModules)
     }
+
+    JwtConfig.initialize(environment.config)
 
     configureDatabases()
     configureRouting()

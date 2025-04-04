@@ -7,6 +7,7 @@ val hikaricp_version: String = "6.3.0"
 val graphql_kotlin_version: String = "8.4.0"
 val koin_version: String = "4.0.3"
 val jbcrypt_version: String = "0.4"
+val auth0_jwt_version: String = "4.5.0"
 
 plugins {
     kotlin("jvm") version "2.1.20"
@@ -65,6 +66,10 @@ dependencies {
 
     implementation("com.expediagroup:graphql-kotlin-ktor-server:$graphql_kotlin_version")
     implementation("org.mindrot:jbcrypt:$jbcrypt_version")
+
+    implementation("io.ktor:ktor-server-auth")
+    implementation("io.ktor:ktor-server-auth-jwt")
+    implementation("com.auth0:java-jwt:$auth0_jwt_version")
 
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
