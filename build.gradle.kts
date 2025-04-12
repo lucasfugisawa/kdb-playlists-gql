@@ -1,10 +1,10 @@
 val kotlin_version: String by project
 val logback_version: String by project
-val exposed_version: String = "0.60.0"
-val flyway_version: String = "11.5.0"
+val exposed_version: String = "0.61.0"
+val flyway_version: String = "11.7.0"
 val postgres_version: String = "42.7.5"
 val hikaricp_version: String = "6.3.0"
-val graphql_kotlin_version: String = "8.4.0"
+val graphql_kotlin_version: String = "8.5.0"
 val koin_version: String = "4.0.3"
 val jbcrypt_version: String = "0.4"
 val auth0_jwt_version: String = "4.5.0"
