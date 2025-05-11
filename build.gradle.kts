@@ -1,18 +1,18 @@
 val kotlin_version: String by project
 val logback_version: String by project
 val exposed_version: String = "0.61.0"
-val flyway_version: String = "11.7.0"
+val flyway_version: String = "11.8.1"
 val postgres_version: String = "42.7.5"
 val hikaricp_version: String = "6.3.0"
-val graphql_kotlin_version: String = "8.5.0"
-val koin_version: String = "4.0.3"
+val graphql_kotlin_version: String = "9.0.0-alpha.8"
+val koin_version: String = "4.0.4"
 val jbcrypt_version: String = "0.4"
 val auth0_jwt_version: String = "4.5.0"
 
 plugins {
     kotlin("jvm") version "2.1.20"
-    id("io.ktor.plugin") version "3.1.2"
-    id("org.jmailen.kotlinter") version "5.0.1"
+    id("io.ktor.plugin") version "3.1.3"
+    id("org.jmailen.kotlinter") version "5.0.2"
     id("com.github.ben-manes.versions") version "0.52.0"
 }
 
@@ -46,7 +46,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty")
     implementation("io.ktor:ktor-server-status-pages")
 
-    implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koin_version"))
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
     implementation("io.insert-koin:koin-core")
     implementation("io.insert-koin:koin-ktor")
     implementation("io.insert-koin:koin-logger-slf4j")
